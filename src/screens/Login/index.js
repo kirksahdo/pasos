@@ -7,15 +7,10 @@ import crise from '../../../assets/esta-tendo-uma-crise.png';
 
 import styles from './styles';
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, login }) => {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-
-
-    async function login() {
-
-    }
 
 
     return (
@@ -38,7 +33,7 @@ const Login = ({ navigation }) => {
                         <Text style={styles.txtExtras}>Esqueceu sua senha?</Text>
                     </TouchableWithoutFeedback>
                     <TouchableWithoutFeedback>
-                        <Text style={styles.txtExtras} onPress={() => navigation.navigate('Register')}  >Ainda não é cadastrado?</Text>
+                        <Text style={styles.txtExtras} onPress={() => navigation.navigate('Cadastro')}  >Ainda não é cadastrado?</Text>
                     </TouchableWithoutFeedback>
                     <TouchableOpacity style={styles.btnEntrar} onPress={login}>
                         <Text style={styles.labelEntrar}>ENTRAR</Text>
