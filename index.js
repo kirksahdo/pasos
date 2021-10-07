@@ -2,9 +2,8 @@
  * @format
  */
 
-import {AppRegistry} from 'react-native';
-import Cadastro from './src/screens/Cadastro';
-import Login from './src/screens/Login';
-import {name as appName} from './app.json';
+import { AppRegistry } from 'react-native';
+import { name as appName } from './app.json';
+import App from './App';
 
-AppRegistry.registerComponent(appName, () => Login);
+AppRegistry.registerComponent(appName, () => App);
