@@ -1,23 +1,37 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import AuthRoutes from './auth.routes';
 import AppRoutes from './app.routes';
 
-class Routes extends Component{
+import Firebase from '../config/firebase.config';
+
+class Routes extends Component {
 
     state = {
         signed: false
     }
 
-    
-    render(){
-        if(!this.state.signed){
-            return <AuthRoutes login = {() => this.setState({signed: true})} />
-        }else{
+
+    async getAuth() {
+        const auth = Firebase.auth()
+        console.log(await auth.currentUser)
+        if (auth) {
+            return true
+        }
+        return false
+    }
+
+
+    render() {
+
+        this.state.signed = this.getAuth()
+        if (this.state.signed) {
+            return <AuthRoutes login={() => this.setState({ signed: true })} />
+        } else {
             return <AppRoutes />;
         }
     }
-    
+
 
 }
 

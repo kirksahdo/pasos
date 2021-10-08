@@ -1,4 +1,4 @@
-import {StyleSheet, StatusBar} from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 
 const styles = StyleSheet.create({
     background: {
@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         paddingTop: StatusBar.currentHeight
     },
     logo: {
-        width:'100%',
+        width: '100%',
         alignItems: 'flex-end'
     },
     form: {
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     txtInput: {
         fontFamily: 'pompadour',
         fontSize: 16,
+        color: "#111111",
         fontWeight: 'normal',
         backgroundColor: '#fff',
         borderRadius: 6,

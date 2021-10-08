@@ -1,15 +1,15 @@
 export default class UserModel {
     constructor(
-        id,
-        name,
+        uid,
+        nome,
         email,
-        created_at,
-        udpated_at,
+        createdAt,
+        updatedAt
     ) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.created_at = created_at;
-        this.udpated_at = udpated_at;
+        this.uid = uid
+        this.nome = nome
+        this.email = email
+        this.createdAt = createdAt ? createdAt : Date.now().toString()
+        this.updatedAt = updatedAt ? updatedAt : Date.now().toString()
     }
 }

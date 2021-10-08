@@ -6,15 +6,17 @@ import Cadastro from '../screens/Cadastro';
 
 const Stack = createNativeStackNavigator();
 
-const AuthRoutes = ({login}) => {
+const AuthRoutes = ({ login }) => {
 
 
-    return(
-        <Stack.Navigator initialRouteName='Login' screenOptions={{headerShown: false}}>
+    return (
+        <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
             <Stack.Screen name='Login' >
                 {props => <Login {...props} login={login} />}
             </Stack.Screen>
-            <Stack.Screen name='Cadastro' component={Cadastro} />
+            <Stack.Screen name='Cadastro'>
+                {props => <Cadastro {...props} />}
+            </Stack.Screen>
         </Stack.Navigator>
     )
 

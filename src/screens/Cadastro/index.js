@@ -9,25 +9,30 @@ import styles from './styles';
 import UserModel from '../../models/user.model'
 import Firebase from '../../config/firebase.config';
 
-const Cadastro = () => {
+const Cadastro = ({ navigation }) => {
 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [senhaRepetida, setSenhaRepetida] = useState('');
-    const database = Firebase.firestore()
+    const database = Firebase.database()
     const authentication = Firebase.auth()
 
 
     async function register() {
         try {
-            /*
-            await authentication.createUserWithEmailAndPassword(user.email, senha).then((userCredential) => {
-                console.log(userCredential.user)
+
+            await authentication.createUserWithEmailAndPassword(email, senha).then(async (userCredentials) => {
+                const user = new UserModel(userCredentials.user.uid, nome, email)
+                await database.ref(`Users`).child(user.uid).set(user).then(() => {
+                    alert('Usuário Criado ...')
+                    navigation.navigate('Login')
+
+                });
             })
-            */
 
         } catch (error) {
+            console.error(error)
             alert(error)
         }
     }
@@ -45,10 +50,10 @@ const Cadastro = () => {
                     <Text style={styles.headerTitle}>Cadastro</Text>
                 </View>
                 <View style={styles.inputs}>
-                    <TextInput style={styles.txtInput} placeholder='NOME COMPLETO' value={nome} onChangeText={txt => setNome(txt)} />
-                    <TextInput style={styles.txtInput} placeholder='EMAIL' value={email} onChangeText={txt => setEmail(txt)} />
-                    <TextInput style={styles.txtInput} placeholder='SENHA' value={senha} onChangeText={txt => setSenha(txt)} />
-                    <TextInput style={styles.txtInput} placeholder='REPITA A SENHA' value={senhaRepetida} onChangeText={txt => setSenhaRepetida(txt)} />
+                    <TextInput style={styles.txtInput} placeholder='NOME COMPLETO' placeholderTextColor='#7d7d7d' value={nome} onChangeText={txt => setNome(txt)} />
+                    <TextInput keyboardType='email-address' style={styles.txtInput} placeholder='EMAIL' placeholderTextColor='#7d7d7d' value={email} onChangeText={txt => setEmail(txt)} />
+                    <TextInput secureTextEntry={true} style={styles.txtInput} placeholder='SENHA' placeholderTextColor='#7d7d7d' value={senha} onChangeText={txt => setSenha(txt)} />
+                    <TextInput secureTextEntry={true} style={styles.txtInput} placeholder='REPITA A SENHA' placeholderTextColor='#7d7d7d' value={senhaRepetida} onChangeText={txt => setSenhaRepetida(txt)} />
                 </View>
                 <View style={styles.buttons}>
                     <TouchableWithoutFeedback >
