@@ -15,9 +15,10 @@ class Routes extends Component {
         seenTutorial: false
     }
 
-    componentDidMount(){
+    constructor(props){
+        super(props);
         Firebase.auth().onAuthStateChanged(user => {
-            if(user){
+            if(user != null){
                 const user = Firebase.auth().currentUser;
                 const database = Firebase.database();
                 database.ref('Users').child(user.uid).get().then((snapshot) => {
@@ -26,6 +27,9 @@ class Routes extends Component {
                         if(user.seenTutorial != null){
                             if(user.seenTutorial){
                                 this.setState({seenTutorial: true, signed: true, loading: false})
+                            }
+                            else{
+                                this.setState({signed: true, loading: false})
                             }
                         }
                         else{
