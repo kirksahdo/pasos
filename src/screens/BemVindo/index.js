@@ -9,7 +9,7 @@ import setabaixo from '../../../assets/icone-seta-baixo.png'
 
 import styles from './styles';
 
-const BemVindo = () => {
+const BemVindo = ({seeTutorial}) => {
 
     const slides = [{
         title: 'Bem Vindo!',
@@ -29,7 +29,7 @@ const BemVindo = () => {
 
     const next = () => {
         if(currentItem + 1 >= slides.length) {
-            // concluiu o passo a passo
+            seeTutorial();
             return;
         }
         let current = currentItem;

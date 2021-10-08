@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, StatusBar, Dimensions } from "react-native";
 
 const styles = StyleSheet.create({
     background: {

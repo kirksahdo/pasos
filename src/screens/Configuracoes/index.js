@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, ImageBackground, StatusBar, TouchableOpacity } from 'react-native';
 
+import Firebase from '../../config/firebase.config';
 import background from '../../../assets/white-background.png';
 import iconeEditarPerfil from '../../../assets/icone-editar-perfil.png'
 import iconeGeral from '../../../assets/icone-geral.png'
@@ -39,7 +40,7 @@ const Configuracoes = ({navigation}) => (
                 </View>
                 <Text style={styles.buttonLabel}>Fazer Sugestões</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => Firebase.auth().signOut()}>
                 <View style={styles.icone} >
                     <Image source={iconeSair} />
                 </View>

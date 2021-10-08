@@ -26,7 +26,6 @@ const Cadastro = ({ navigation }) => {
                 const user = new UserModel(userCredentials.user.uid, nome, email)
                 await database.ref(`Users`).child(user.uid).set(user).then(() => {
                     alert('Usuário Criado ...')
-                    navigation.navigate('Login')
 
                 });
             })
@@ -40,7 +39,7 @@ const Cadastro = ({ navigation }) => {
 
     return (
         <ImageBackground source={background} style={styles.background}>
-            <StatusBar translucent backgroundColor="transparent" />
+            <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
 
             <View style={styles.logo}>
                 <Image source={logo} style={{ margin: 20 }} />
@@ -60,7 +59,7 @@ const Cadastro = ({ navigation }) => {
                         <Text style={styles.txtExtras}>Já é cadastrado?</Text>
                     </TouchableWithoutFeedback>
                     <TouchableOpacity style={styles.btnCadastrar} onPress={register}>
-                        <Text style={styles.labelCadastrar}>ENTRAR</Text>
+                        <Text style={styles.labelCadastrar}>CADASTRAR</Text>
                     </TouchableOpacity>
                 </View>
             </View>

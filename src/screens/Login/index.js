@@ -26,7 +26,7 @@ const Login = ({ navigation, login }) => {
 
     return (
         <ImageBackground source={background} style={styles.background}>
-            <StatusBar translucent backgroundColor="transparent" />
+            <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
 
             <View style={styles.logo}>
                 <Image source={logo} style={{ margin: 20 }} />
