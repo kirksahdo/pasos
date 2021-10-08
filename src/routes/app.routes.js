@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Cadastro from '../screens/Cadastro';
 import Login from '../screens/Login';
+import ConfigRoutes from './config.routes';
 
 import iconeInicio from './../../assets/icone-inicio.png'
 import iconeInicioAtivo from './../../assets/icone-inicio-ativo.png'
@@ -19,7 +20,7 @@ import iconeConfiguracoesAtivo from './../../assets/icone-configuracoes-ativo.pn
 const Tab = createBottomTabNavigator();
 
 const AppRoutes = () => (
-    <Tab.Navigator initialRouteName='Inicio' 
+    <Tab.Navigator initialRouteName='Configuracoes' 
         screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
             let image;
@@ -53,7 +54,7 @@ const AppRoutes = () => (
         <Tab.Screen name='Estatisticas' component={Login}/>
         <Tab.Screen name='Crise' component={Cadastro}/>
         <Tab.Screen name='Perfil' component={Login}/>
-        <Tab.Screen name='Configuracoes' component={Cadastro}/>
+        <Tab.Screen name='Configuracoes' component={ConfigRoutes}/>
     </Tab.Navigator>
 )
 
