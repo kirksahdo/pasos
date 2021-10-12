@@ -2,7 +2,8 @@ import { StyleSheet, Dimensions, StatusBar } from "react-native";
 
 const styles = StyleSheet.create({
     background: {
-        flex: 1,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
         justifyContent: 'center',
         alignItems: 'center'
     },

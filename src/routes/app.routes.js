@@ -6,6 +6,7 @@ import Cadastro from '../screens/Cadastro';
 import Login from '../screens/Login';
 import ConfigRoutes from './config.routes';
 import CriseRoutes from './crise.routes';
+import Perfil from '../screens/Perfil';
 
 import iconeInicio from './../../assets/icone-inicio.png'
 import iconeInicioAtivo from './../../assets/icone-inicio-ativo.png'
@@ -51,18 +52,16 @@ const AppRoutes = () => (
                 return <Image source={image} />;
             },
             tabBarShowLabel: false,
-            tabBarStyle: { height: 60, borderTopLeftRadius: 40 },
+            tabBarStyle: { height: 60, borderTopLeftRadius: 15, borderTopRightRadius: 15, position: 'absolute' },
             headerShown: false,
-            tabBarBackground: () => (
-                <View style={{ backgroundColor: '#fff', height: '100%', borderTopLeftRadius: 10 }} />
-            ),
-            tabBarVisibilityAnimationConfig: true
+            tabBarVisibilityAnimationConfig: true,
+            tabBarHideOnKeyboard: true
         })}
     >
         <Tab.Screen name='Inicio' component={Cadastro} />
         <Tab.Screen name='Estatisticas' component={Login} />
         <Tab.Screen name='Crise' component={CriseRoutes} />
-        <Tab.Screen name='Perfil' component={Login} />
+        <Tab.Screen name='Perfil' component={Perfil} />
         <Tab.Screen name='Configuracoes' component={ConfigRoutes} />
     </Tab.Navigator>
 )

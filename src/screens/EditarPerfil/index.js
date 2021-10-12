@@ -31,8 +31,8 @@ class EditarPerfil extends Component{
                     nome: userData.nome ? userData.nome : '',
                     email: userData.email ? userData.email : '',
                     dataDeNascimento: userData.dataDeNascimento ? userData.dataDeNascimento : '',
-                    peso: userData.peso ? userData.peso : '',
-                    altura: userData.altura ? userData.altura : '',
+                    peso: userData.peso ? Number(userData.peso).toString() + ' kg' : '',
+                    altura: userData.altura ? Number(userData.altura).toString() + ' m' : '',
                 };
                 this.setState({...load});
             }
