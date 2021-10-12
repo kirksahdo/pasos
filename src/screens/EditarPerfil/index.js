@@ -26,7 +26,7 @@ class EditarPerfil extends Component{
         const database = Firebase.database().ref('Users');
         database.child(user.uid).get().then((snapshot) => {
             if(snapshot.exists()){
-                userData = snapshot.val();
+                const userData = snapshot.val();
                 const load = {
                     nome: userData.nome ? userData.nome : '',
                     email: userData.email ? userData.email : '',
@@ -39,9 +39,14 @@ class EditarPerfil extends Component{
         })
     }
 
+    saveUserData = () => {
+        const user = Firebase.auth().currentUser;
+        const database = Firebase.database().ref('Users');
+    }
+
     constructor(props){
         super(props);
-
+        this.getUserData();
     }
 
     render(){
@@ -56,7 +61,7 @@ class EditarPerfil extends Component{
                         </View>
                         <View style={styles.inputs}>
                             <TextInput placeholder='NOME' style={styles.input} value={this.state.nome} onChangeText={text => this.setState({nome: text})} />
-                            <TextInput placeholder='EMAIL' style={styles.input} value={this.state.email} onChangeText={text => this.setState({email: text})} />
+                            <TextInput placeholder='EMAIL' editable={false} style={styles.input} value={this.state.email} onChangeText={text => this.setState({email: text})} />
                             <TextInput placeholder='SENHA' secureTextEntry={true} style={styles.input} value={this.state.senha} onChangeText={text => this.setState({senha: text})} />
                             <TextInput placeholder='DATA DE NASCIMENTO' style={styles.input} value={this.state.dataDeNascimento} onChangeText={text => this.setState({dataDeNascimento: text})} />
                             <TextInput placeholder='PESO' style={styles.input} value={this.state.peso} onChangeText={text => this.setState({peso: text})} />

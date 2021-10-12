@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, StatusBar } from "react-native";
 
 const styles = StyleSheet.create({
     background: {
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         marginBottom: '0%'
     },
     input: {
-        color: '#FFFFFF',
+        color: '#fff',
         padding: 10,
         fontSize: 18,
         borderBottomColor: '#000',
@@ -53,6 +53,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         width: '100%'
     },
+    setaEsquerda: {
+        position: 'absolute',
+        left: 18,
+        top: StatusBar.currentHeight + 21
+    }
 
 
 });

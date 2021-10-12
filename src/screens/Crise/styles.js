@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
     viewLabelSeparator: {
         margin: 40,
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#FFF'
     }
 });
 

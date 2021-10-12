@@ -9,10 +9,7 @@ import Firebase from "../../config/firebase.config";
 class Crise extends Component {
 
     state = {
-        contatosStatus: {
-            tocado: false,
-            existeContatos: false
-        }
+        existeContatos : false
     }
     constructor(props) {
         super(props)
@@ -20,30 +17,33 @@ class Crise extends Component {
         this.uid = Firebase.auth().currentUser.uid
 
     }
-    clickContatos() {
-        let existeContato = false
+
+    componentDidMount(){
+        this.getContatos()
+    }
+
+    getContatos() {
         this.database.child(this.uid).on('value', querySnapShot => {
-            if (querySnapShot.val()) {
-                this.props.navigation.navigate("ListaContato")
-            } else {
-                this.setState({
-                    contatosStatus: {
-                        tocado: true,
-                        existeContatos: existeContato
-                    }
-                })
-            }
+            this.setState({
+                existeContatos: !!querySnapShot.val()
+            })
         })
 
     }
+
     clickAdicionarContato() {
         this.props.navigation.navigate("AddContato")
     }
+
     getErrorContatos() {
         if (this.state.contatosStatus.tocado && !this.state.contatosStatus.existeContatos) {
             return false
         }
         return true
+    }
+
+    clickContatos(){
+        this.props.navigation.navigate("ListaContato")
     }
 
     render() {
@@ -66,23 +66,23 @@ class Crise extends Component {
             <View style={styles.errorInfor}>
                 <Text style={styles.viewLabelTitleError}>ERRO!</Text>
                 <Text style={styles.viewLabelDescriptionError}>
-                    AGORA OU LOCALIZE O CAPS MAIS PRÓXIMO DE SUA LOCALIZAÇÃO ATUAL.
+                VOCÊ AINDA NÃO ADICIONOU NENHUM CONTATO À LISTA. ADICIONE AGORA OU LOCALIZE O CAPS MAIS PRÓXIMO DE SUA LOCALIZAÇÃO ATUAL.
                 </Text>
                 <TouchableOpacity style={styles.button} onPress={() => this.clickAdicionarContato()}>
                     <Text style={styles.buttonLabelTitle}>
                         ADICIONAR
                     </Text>
                 </TouchableOpacity>
-                <Text style={styles.viewLabelSeparator} >OU</Text>
+                <Text style={styles.viewLabelSeparator}>OU</Text>
             </View>
         )
 
         return (
             <ImageBackground source={background} style={styles.background}>
-                <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
+                <StatusBar barStyle='light-content' translucent backgroundColor="transparent" />
                 <View style={styles.buttons}>
 
-                    {this.getErrorContatos() ? <Contantos /> : <ErroContatos />}
+                    {this.state.existeContatos ? <Contantos /> : <ErroContatos />}
 
                     <TouchableOpacity style={styles.buttonLarge} >
                         <View style={styles.icone} >

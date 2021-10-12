@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import background from '../../../assets/black-background.png';
-import { ImageBackground, Text, View, TextInput, ScrollView, TouchableOpacity } from "react-native";
+import { ImageBackground, Text, View, TextInput, ScrollView, TouchableOpacity, Image, StatusBar } from "react-native";
 import style from './style.js'
 import Firebase from '../../config/firebase.config';
 import ContatoModel from "../../models/contato.model";
+
+import setaesquerda from '../../../assets/seta-esquerda-branca.png';
 
 class NovoContato extends Component {
     state = {
@@ -19,18 +21,22 @@ class NovoContato extends Component {
     async saveContato() {
         const id = Date.now().toString()
         const contato = new ContatoModel(id, this.uid, this.state.nome, this.state.contato, this.state.observacao)
-        await this.database.child(contato.uid).child(id).set(contato).then(() => {
-            alert('Contanto Salvo ...')
-            this.state({
-                nome: '',
-                contato: '',
-                observacao: ''
-            })
+        this.database.child(contato.uid).child(id).set(contato).then((_) => {
+            alert('Contato salvo com sucesso ...')
+
+            this.setState({nome: '',
+                        contato: '',
+                        observacao: ''});
+            this.props.navigation.goBack();
         })
     }
+
+    
+
     render() {
         return (
             <ImageBackground source={background} style={style.background}>
+                <StatusBar barStyle='light-content' translucent backgroundColor="transparent" />
                 <ScrollView style={style.scroll}>
                     <View>
                         <Text style={style.viewLabelTitle}>ADICIONAR CONTATO</Text>
@@ -39,19 +45,22 @@ class NovoContato extends Component {
                         <TextInput
                             style={style.input}
                             placeholder='NOME'
+                            placeholderTextColor='#fff'
                             value={this.state.nome}
                             onChangeText={text => this.setState({ nome: text })}
                         />
                         <TextInput
                             style={style.input}
                             placeholder='CONTATO'
+                            placeholderTextColor='#fff'
                             keyboardType="phone-pad"
                             value={this.state.contato}
                             onChangeText={text => this.setState({ contato: text })}
                         />
                         <TextInput
                             style={style.input}
-                            placeholder='OBSERVAÇÃO (OPCIONAL)'
+                            placeholder='OBSERVAÇÕES (OPCIONAL)'
+                            placeholderTextColor='#fff'
                             value={this.state.observacao}
                             onChangeText={text => this.setState({ observacao: text })}
                         />
@@ -62,6 +71,9 @@ class NovoContato extends Component {
                         </Text>
                     </TouchableOpacity>
                 </ScrollView>
+                <TouchableOpacity style={style.setaEsquerda} onPress={() => this.props.navigation.goBack()}>
+                    <Image source={setaesquerda} />
+                </TouchableOpacity>
             </ImageBackground>
         )
     }

@@ -1,49 +1,81 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, StatusBar } from "react-native";
 
 const styles = StyleSheet.create({
     background: {
         flex: 1,
         justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: StatusBar.currentHeight + 50
+    },
+    title:{
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 38
+    },  
+    titleLabel: {
+        fontFamily: 'newake',
+        fontSize: 40,
+        color: '#fff'
+    }, 
+    list: {
+        flex: 1,
+    },
+    contato: {
+        width: Dimensions.get('window').width * 0.8,
+        backgroundColor: '#fff',
+        padding: 23,
+        borderRadius: 10,
+        marginBottom: 14
+    },
+    btnLigar: {
+        width: '100%',
+        backgroundColor: '#000',
+        borderRadius: 8,
+        padding: 12,
+        justifyContent: 'center',
         alignItems: 'center'
     },
-    scroll: {
-        flex: 1,
-        paddingTop: '25%',
+    contatoData: {
+        flexDirection: 'row',
+        marginBottom: 8
     },
-    viewLabelTitle: {
-        color: '#EEEEEE',
-        fontSize: 40,
-        fontFamily: 'Newake',
-        fontWeight: "bold",
-        margin: 20,
-        textAlign: 'center'
-    },
-    buttons: {
-        width: 0.90 * Dimensions.get('window').width,
-    },
-    button: {
-        marginTop: '20%',
-        backgroundColor: '#FFFFFF',
-        alignItems: 'center',
-        paddingVertical: 20,
-        paddingHorizontal: 28,
-        borderRadius: 20,
-        marginBottom: 18,
-        width: '100%'
-    },
-    buttonLabelTitle: {
-        color: '#000000',
-        fontSize: 20,
+    btnLabel: {
+        color: '#fff',
+        textTransform: 'uppercase',
         fontFamily: 'pompadour',
-        marginTop: 5,
-        textAlign: 'center',
-        width: '100%'
+        fontSize: 17
     },
-    container: {
+    nomeContato: {
         flex: 1,
-        marginTop: StatusBar.currentHeight || 0,
+        justifyContent: 'space-between'
     },
-
+    labelNome: {
+        width: '100%',
+        textAlign: 'center',
+        fontFamily: 'newake',
+        color: '#000',
+        fontSize: 35,
+        textTransform: 'uppercase',
+        marginTop: 3
+    },
+    labelContato: {
+        width: '100%',
+        textAlign: 'center',
+        fontFamily: 'pompadour',
+        fontSize: 18,
+        color: '#000'
+    },
+    setaEsquerda: {
+        position: 'absolute',
+        left: 18,
+        top: StatusBar.currentHeight + 21
+    },
+    addBranco: {
+        position: 'absolute',
+        right: 18,
+        top: StatusBar.currentHeight + 21
+    }
 });
 
 

@@ -39,8 +39,11 @@ const AppRoutes = () => (
                         return <Image source={image} style={{ marginBottom: 16 }} />;
                     case 'Perfil':
                         image = focused ? iconePerfilAtivo : iconePerfil;
+                        break;
                     case 'Configuracoes':
                         image = focused ? iconeConfiguracoesAtivo : iconeConfiguracoes;
+                        break;
+                        
 
                 }
 
