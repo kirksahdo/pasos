@@ -15,55 +15,50 @@ class Routes extends Component {
         seenTutorial: false
     }
 
-    constructor(props){
+    constructor(props) {
         super(props);
         Firebase.auth().onAuthStateChanged(user => {
-            if(user != null){
+            if (user) {
                 const user = Firebase.auth().currentUser;
                 const database = Firebase.database();
                 database.ref('Users').child(user.uid).get().then((snapshot) => {
-                    if(snapshot.exists()){
+                    if (snapshot.exists()) {
                         let user = snapshot.val();
-                        if(user.seenTutorial != null){
-                            if(user.seenTutorial){
-                                this.setState({seenTutorial: true, signed: true, loading: false})
-                            }
-                            else{
-                                this.setState({signed: true, loading: false})
-                            }
+                        if (user.seenTutorial) {
+                            this.setState({ seenTutorial: true, signed: true, loading: false })
                         }
-                        else{
-                            this.setState({signed: true, loading: false})
+                        else {
+                            this.setState({ signed: true, loading: false })
                         }
                     }
                 })
-            }else{
-                this.setState({signed: false, loading: false });
+            } else {
+                this.setState({ signed: false, loading: false });
             }
-            
+
         });
     }
 
     seeTutorial = () => {
         const user = Firebase.auth().currentUser;
         const database = Firebase.database();
-        database.ref('Users').child(user.uid).child('seenTutorial').set(true).then( res => {
-            this.setState({seenTutorial: true});
+        database.ref('Users').child(user.uid).child('seenTutorial').set(true).then(res => {
+            this.setState({ seenTutorial: true });
         });
-    } 
+    }
 
 
     render() {
-        if( this.state.loading ){
+        if (this.state.loading) {
             return <SplashScreen />
         }
         if (!this.state.signed) {
             return <AuthRoutes />
         } else {
-            if( this.state.seenTutorial ){
+            if (this.state.seenTutorial) {
                 return <AppRoutes />;
             }
-            else{
+            else {
                 return <BemVindo seeTutorial={this.seeTutorial} />
             }
         }

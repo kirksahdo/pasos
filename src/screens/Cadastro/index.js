@@ -24,10 +24,9 @@ const Cadastro = ({ navigation }) => {
 
             await authentication.createUserWithEmailAndPassword(email, senha).then(async (userCredentials) => {
                 const user = new UserModel(userCredentials.user.uid, nome, email)
-                
+
                 await database.ref(`Users`).child(user.uid).set(user).then(() => {
                     alert('Usuário Criado ...')
-
                 });
                 navigation.navigate('Login');
             })

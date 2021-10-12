@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, StatusBar, ImageBackground, Image, TextInput, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { Text, View, StatusBar, ImageBackground, Image, TextInput, TouchableWithoutFeedback, TouchableOpacity, Alert } from 'react-native';
 
 import background from '../../../assets/background.png';
 import logo from '../../../assets/logo-preta-2.png';
@@ -16,12 +16,11 @@ const Login = ({ navigation, login }) => {
     const [senha, setSenha] = useState('');
     const authentication = Firebase.auth()
 
-    function setAuth() {
-        authentication.signInWithEmailAndPassword(email, senha).then((response) => {
-            alert(response)
-        }).catch((error) => [
+    async function setAuth() {
+        authentication.signInWithEmailAndPassword(email, senha).catch((error) => {
+            console.error(error)
             alert(error)
-        ])
+        })
     }
 
     return (

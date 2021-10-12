@@ -1,0 +1,104 @@
+import React, { Component } from "react";
+import { Image, ImageBackground, StatusBar, Text, TouchableOpacity, View } from "react-native";
+import background from '../../../assets/black-background.png';
+import iLigar from '../../../assets/icone-notificacoes.png';
+import iLocal from '../../../assets/icone-inicio-ativo.png'
+import styles from './styles';
+import Firebase from "../../config/firebase.config";
+
+class Crise extends Component {
+
+    state = {
+        contatosStatus: {
+            tocado: false,
+            existeContatos: false
+        }
+    }
+    constructor(props) {
+        super(props)
+        this.database = Firebase.database().ref('Contatos')
+        this.uid = Firebase.auth().currentUser.uid
+
+    }
+    clickContatos() {
+        let existeContato = false
+        this.database.child(this.uid).on('value', querySnapShot => {
+            if (querySnapShot.val()) {
+                this.props.navigation.navigate("ListaContato")
+            } else {
+                this.setState({
+                    contatosStatus: {
+                        tocado: true,
+                        existeContatos: existeContato
+                    }
+                })
+            }
+        })
+
+    }
+    clickAdicionarContato() {
+        this.props.navigation.navigate("AddContato")
+    }
+    getErrorContatos() {
+        if (this.state.contatosStatus.tocado && !this.state.contatosStatus.existeContatos) {
+            return false
+        }
+        return true
+    }
+
+    render() {
+        const Contantos = () => (
+            <TouchableOpacity style={styles.button} onPress={() => this.clickContatos()} >
+                <View style={styles.icone} >
+                    <Image source={iLigar} />
+                </View>
+                <View style={styles.viewLabels}>
+                    <Text style={styles.buttonLabelTitleLarge}>LIGUE</Text>
+                    <Text style={styles.buttonLabelDescription}>
+                        Para um dos
+                        seus contatos
+                        de emergência
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        )
+        const ErroContatos = () => (
+            <View style={styles.errorInfor}>
+                <Text style={styles.viewLabelTitleError}>ERRO!</Text>
+                <Text style={styles.viewLabelDescriptionError}>
+                    AGORA OU LOCALIZE O CAPS MAIS PRÓXIMO DE SUA LOCALIZAÇÃO ATUAL.
+                </Text>
+                <TouchableOpacity style={styles.button} onPress={() => this.clickAdicionarContato()}>
+                    <Text style={styles.buttonLabelTitle}>
+                        ADICIONAR
+                    </Text>
+                </TouchableOpacity>
+                <Text style={styles.viewLabelSeparator} >OU</Text>
+            </View>
+        )
+
+        return (
+            <ImageBackground source={background} style={styles.background}>
+                <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
+                <View style={styles.buttons}>
+
+                    {this.getErrorContatos() ? <Contantos /> : <ErroContatos />}
+
+                    <TouchableOpacity style={styles.buttonLarge} >
+                        <View style={styles.icone} >
+                            <Image source={iLocal} />
+                        </View>
+                        <View style={styles.viewLabels}>
+                            <Text style={styles.buttonLabelTitleLarge}>LOCALIZE</Text>
+                            <Text style={styles.buttonLabelDescription}>
+                                O CAPS mais próximo de sua localização.
+                            </Text>
+                        </View>
+
+                    </TouchableOpacity>
+                </View>
+            </ImageBackground>
+        )
+    }
+}
+export default Crise
