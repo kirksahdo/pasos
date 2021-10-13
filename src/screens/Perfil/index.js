@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import {View, Text, StyleSheet, ImageBackground, Dimensions, StatusBar, Image} from 'react-native'
-
+import React, { Component } from 'react'
+import { View, Text, StyleSheet, ImageBackground, Dimensions, StatusBar, Image } from 'react-native'
+import { DateUtils } from '../../common/date.utils'
 import Firebase from '../../config/firebase.config'
 
 import background from '../../../assets/white-background.png'
@@ -13,20 +13,21 @@ class Perfil extends Component {
         dataDeNascimento: '',
         peso: '',
         altura: '',
+        idade: 0
     }
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.db = Firebase.database().ref('Users');
         this.db.child(Firebase.auth().currentUser.uid).on('value', snapshot => {
-            if(snapshot.exists()){
+            if (snapshot.exists()) {
                 let user = snapshot.val();
-                console.log(user);
-                this.setState ({
-                    nome: user.nome?user.nome:'',
-                    altura: user.altura?user.altura:'',
-                    peso: user.peso?user.peso:'',
-                    dataDeNascimento: user.dataDeNascimento?user.dataDeNascimento:'',   
+                this.setState({
+                    nome: user.nome ? user.nome : '',
+                    altura: user.altura ? user.altura : '',
+                    peso: user.peso ? user.peso : '',
+                    dataDeNascimento: user.dataDeNascimento ? DateUtils.MillisecToFormatedDate(user.dataDeNascimento) : '',
+                    idade: DateUtils.old(user.dataDeNascimento)
                 })
             }
         });
@@ -34,13 +35,14 @@ class Perfil extends Component {
 
     getUser = (uid) => {
         this.db.child(uid).get().then(snapshot => {
-            if(snapshot.exists()){
+            if (snapshot.exists()) {
                 let user = snapshot.val();
-                this.setState ({
-                    nome: user.nome?user.nome:'',
-                    altura: user.altura?user.altura:'',
-                    peso: user.peso?user.peso:'',
-                    dataDeNascimento: user.dataDeNascimento?user.dataDeNascimento:'',   
+                this.setState({
+                    nome: user.nome ? user.nome : '',
+                    altura: user.altura ? user.altura : '',
+                    peso: user.peso ? user.peso : '',
+                    dataDeNascimento: user.dataDeNascimento ? DateUtils.MillisecToFormatedDate(user.dataDeNascimento) : '',
+                    idade: DateUtils.old(user.dataDeNascimento)
                 })
             }
         }).catch(error => {
@@ -48,8 +50,8 @@ class Perfil extends Component {
         });
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <ImageBackground source={background} style={styles.background}>
                 <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
                 <View style={styles.userNameAndPhoto}>
@@ -58,7 +60,7 @@ class Perfil extends Component {
                 </View>
                 <View style={styles.userData}>
                     <Text style={styles.data}>
-                        {`XXX\nANOS`}
+                        {`${this.state.idade}\nANOS`}
                     </Text>
                     <Text style={styles.data}>
                         {`${this.state.peso}\nKG`}
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
         fontSize: 35,
         textTransform: 'uppercase'
     },
-    userData:{
+    userData: {
         flexDirection: 'row',
         justifyContent: 'space-around'
     },
