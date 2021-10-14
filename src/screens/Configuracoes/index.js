@@ -22,19 +22,19 @@ const Configuracoes = ({navigation}) => (
                 </View>
                 <Text style={styles.buttonLabel}>Editar Perfil</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} >
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ConfiguracoesGeral')}>
                 <View style={styles.icone} >
                     <Image source={iconeGeral} />
                 </View>
                 <Text style={styles.buttonLabel}>Geral</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ConfiguracoesNotificacoes')}>
                 <View style={styles.icone} >
                     <Image source={iconeNotificacoes} />
                 </View>
                 <Text style={styles.buttonLabel}>Notificações</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ConfiguracoesSugestoes')}>
                 <View style={styles.icone} >
                     <Image source={iconeSugestoes} />
                 </View>

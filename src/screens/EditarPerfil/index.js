@@ -66,12 +66,17 @@ class EditarPerfil extends Component {
 
     }
     onChange = (event, selectedDate) => {
-        const currentDate = selectedDate.getTime();
         this.setState({
-            showDate: false,
-            dataDeNascimentoEditado: DateUtils.MillisecToFormatedDate(currentDate),
-            dataDeNascimento: currentDate
+            showDate: false
         })
+        if(selectedDate){
+            const currentDate = selectedDate.getTime();
+            this.setState({
+                dataDeNascimentoEditado: DateUtils.MillisecToFormatedDate(currentDate),
+                dataDeNascimento: currentDate
+            });
+        }
+        
 
     };
 

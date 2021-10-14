@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     buttons: {
         width: '100%',
         alignContent: 'center',
-        marginTop: 10
+        marginTop: 10,
+        marginBottom: 100
     },
     txtExtras: {
         fontFamily: 'pompadour',
@@ -78,7 +79,6 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         padding: 20
     }
-
 });
 
 export default styles;

@@ -15,8 +15,7 @@ class Routes extends Component {
         seenTutorial: false
     }
 
-    constructor(props) {
-        super(props);
+    componentDidMount() {
         Firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 const user = Firebase.auth().currentUser;

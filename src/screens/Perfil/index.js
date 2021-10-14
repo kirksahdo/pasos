@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, ImageBackground, Dimensions, StatusBar, Image } from 'react-native'
+import { View, Text, ImageBackground, StatusBar, Image } from 'react-native'
 import { DateUtils } from '../../common/date.utils'
 import Firebase from '../../config/firebase.config'
 
 import background from '../../../assets/white-background.png'
 import iconePessoa from '../../../assets/icone-pessoa.png'
+
+import styles from './styles'
 
 class Perfil extends Component {
 
@@ -19,6 +21,9 @@ class Perfil extends Component {
     constructor(props) {
         super(props);
         this.db = Firebase.database().ref('Users');
+    }
+
+    componentDidMount(){
         this.db.child(Firebase.auth().currentUser.uid).on('value', snapshot => {
             if (snapshot.exists()) {
                 let user = snapshot.val();
@@ -74,34 +79,5 @@ class Perfil extends Component {
     }
 
 }
-
-const styles = StyleSheet.create({
-    background: {
-        flex: 1,
-        paddingTop: StatusBar.currentHeight + 20
-    },
-    userNameAndPhoto: {
-        width: '100%',
-        alignItems: 'center',
-        marginBottom: 25
-    },
-    nome: {
-        marginTop: 17,
-        fontFamily: 'newake',
-        color: '#000',
-        fontSize: 35,
-        textTransform: 'uppercase'
-    },
-    userData: {
-        flexDirection: 'row',
-        justifyContent: 'space-around'
-    },
-    data: {
-        fontFamily: 'pompadour',
-        fontSize: 20,
-        color: '#000',
-        textAlign: 'center'
-    }
-})
 
 export default Perfil;
