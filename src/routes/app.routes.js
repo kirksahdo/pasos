@@ -7,6 +7,7 @@ import Login from '../screens/Login';
 import ConfigRoutes from './config.routes';
 import CriseRoutes from './crise.routes';
 import Perfil from '../screens/Perfil';
+import Estatisticas from '../screens/Estatisticas';
 
 import iconeInicio from './../../assets/icone-inicio.png'
 import iconeInicioAtivo from './../../assets/icone-inicio-ativo.png'
@@ -59,7 +60,7 @@ const AppRoutes = () => (
         })}
     >
         <Tab.Screen name='Inicio' component={Cadastro} />
-        <Tab.Screen name='Estatisticas' component={Login} />
+        <Tab.Screen name='Estatisticas' component={Estatisticas} />
         <Tab.Screen name='Crise' component={CriseRoutes} />
         <Tab.Screen name='Perfil' component={Perfil} />
         <Tab.Screen name='Configuracoes' component={ConfigRoutes} />
