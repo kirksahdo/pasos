@@ -14,6 +14,7 @@ import pesoTreinoIco from '../../../assets/peso.png'
 import macaIco from '../../../assets/maca.png'
 import degraus from '../../../assets/retangulo-degrau.png'
 import linhaY from '../../../assets/linhaY.png'
+import boneco from '../../../assets/user_idle.png'
 
 class Inicio extends Component {
 
@@ -29,7 +30,7 @@ class Inicio extends Component {
             moment().add(1, 'days'),
             moment().add(2, 'days')
         ],
-
+        dayWorkContext: 0
     }
     render() {
         return (
@@ -43,7 +44,9 @@ class Inicio extends Component {
                         }
                     </View>
                     <View style={styles.containerStairs} >
-                        <View >
+                        <View style={styles.viewInit}>
+                            {this.state.dayWorkContext ? null : <Image source={boneco} />}
+
                         </View>
                         <View>
 
@@ -51,19 +54,23 @@ class Inicio extends Component {
                                 <View style={styles.viewStepImg}>
                                     <Image source={degraus} style={styles.degrauImage} />
                                 </View>
-                                <Text style={styles.numDegrausLabel}>3</Text>
+                                <Text style={styles.numDegrausLabel}>{this.state.dayWorkContext + 3}</Text>
                             </View>
                             <View style={styles.midRow}>
                                 <View style={styles.viewStepImg}>
                                     <Image source={degraus} style={styles.degrauImage} />
                                 </View>
-                                <Text style={styles.numDegrausLabel}>2</Text>
+                                <Text style={styles.numDegrausLabel}>{this.state.dayWorkContext + 2}</Text>
                             </View>
+                            <View style={styles.viewUserStep}>
+                                {this.state.dayWorkContext ? <Image source={boneco} /> : null}
+                            </View>
+
                             <View style={styles.bottomRow}>
                                 <View style={styles.viewStepImg}>
                                     <Image source={degraus} style={styles.degrauImage} />
                                 </View>
-                                <Text style={styles.numDegrausLabel}>1</Text>
+                                <Text style={styles.numDegrausLabel}>{this.state.dayWorkContext + 1}</Text>
                             </View>
 
                         </View>

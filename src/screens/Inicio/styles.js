@@ -96,6 +96,14 @@ const styles = StyleSheet.create({
         bottom: 0,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    viewInit: {
+        flex: 1,
+        justifyContent: 'flex-end'
+    },
+    viewUserStep: {
+        top: 30,
+        position: 'absolute'
     }
 
 
