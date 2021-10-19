@@ -19,6 +19,7 @@ import iconePerfil from './../../assets/icone-perfil.png'
 import iconePerfilAtivo from './../../assets/icone-perfil-ativo.png'
 import iconeConfiguracoes from './../../assets/icone-configuracoes.png'
 import iconeConfiguracoesAtivo from './../../assets/icone-configuracoes-ativo.png'
+import Inicio from '../screens/Inicio';
 
 
 const Tab = createBottomTabNavigator();
@@ -45,7 +46,7 @@ const AppRoutes = () => (
                     case 'Configuracoes':
                         image = focused ? iconeConfiguracoesAtivo : iconeConfiguracoes;
                         break;
-                        
+
 
                 }
 
@@ -59,7 +60,7 @@ const AppRoutes = () => (
             tabBarHideOnKeyboard: true
         })}
     >
-        <Tab.Screen name='Inicio' component={Cadastro} />
+        <Tab.Screen name='Inicio' component={Inicio} />
         <Tab.Screen name='Estatisticas' component={Estatisticas} />
         <Tab.Screen name='Crise' component={CriseRoutes} />
         <Tab.Screen name='Perfil' component={Perfil} />
