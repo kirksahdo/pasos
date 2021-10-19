@@ -1,13 +1,11 @@
 import React from 'react';
-import { Image, View } from 'react-native'
+import { Image } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Cadastro from '../screens/Cadastro';
-import Login from '../screens/Login';
 import ConfigRoutes from './config.routes';
 import CriseRoutes from './crise.routes';
 import Perfil from '../screens/Perfil';
-import Estatisticas from '../screens/Estatisticas';
+import EstatisticasRoutes from './estatisticas.routes';
 
 import iconeInicio from './../../assets/icone-inicio.png'
 import iconeInicioAtivo from './../../assets/icone-inicio-ativo.png'
@@ -49,8 +47,6 @@ const AppRoutes = () => (
 
 
                 }
-
-                // You can return any component that you like here!
                 return <Image source={image} />;
             },
             tabBarShowLabel: false,
@@ -61,7 +57,7 @@ const AppRoutes = () => (
         })}
     >
         <Tab.Screen name='Inicio' component={Inicio} />
-        <Tab.Screen name='Estatisticas' component={Estatisticas} />
+        <Tab.Screen name='Estatisticas' component={EstatisticasRoutes} />
         <Tab.Screen name='Crise' component={CriseRoutes} />
         <Tab.Screen name='Perfil' component={Perfil} />
         <Tab.Screen name='Configuracoes' component={ConfigRoutes} />

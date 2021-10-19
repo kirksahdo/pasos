@@ -39,7 +39,7 @@ class Inicio extends Component {
                     <View style={styles.viewDays}>
                         {
                             this.state.days.map((item, index) => (
-                                <CardDays day={item.date()} dayWeek={DateUtils.getDayofWeekBR(item.weekday())} isComplet={index < 2} />
+                                <CardDays index={index} day={item.date()} dayWeek={DateUtils.getDayofWeekBR(item.weekday())} isComplet={index < 2} />
                             ))
                         }
                     </View>

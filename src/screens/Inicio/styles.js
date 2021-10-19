@@ -7,9 +7,11 @@ const styles = StyleSheet.create({
     },
     viewDays: {
         marginTop: 30,
-        marginBottom: 30,
+        marginBottom: 50,
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
     },
     buttons: {
         padding: 12,

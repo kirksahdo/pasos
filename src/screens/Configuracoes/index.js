@@ -40,7 +40,13 @@ const Configuracoes = ({navigation}) => (
                 </View>
                 <Text style={styles.buttonLabel}>Fazer Sugestões</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => Firebase.auth().signOut()}>
+            <TouchableOpacity style={styles.button} onPress={() => {
+                    navigation.reset({
+                        index: 0,
+                        routes: [{name: 'Configuracoes'}]
+                    });
+                    Firebase.auth().signOut();
+                }}>
                 <View style={styles.icone} >
                     <Image source={iconeSair} />
                 </View>
