@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
         width: '100%',
         alignContent: 'center',
         marginTop: 10,
-        marginBottom: 100
     },
     txtExtras: {
         fontFamily: 'pompadour',

@@ -9,6 +9,7 @@ import moment from 'moment';
 import 'moment/locale/pt-br';
 
 import styles from './styles';
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
 
 class DiaEspecifico extends Component {
 
@@ -41,7 +42,7 @@ class DiaEspecifico extends Component {
         const date = moment(this.props.route.params.date, 'YYYY-MM-DD');
         return (
             <ImageBackground source={background} style={styles.background}>
-                <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
+                <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
                 <View style={styles.container}>
                     <View style={styles.header}>
                         <Text style={styles.headerTitle}>{moment(date).format('DD[  de  ]MMMM')}</Text>
@@ -53,7 +54,7 @@ class DiaEspecifico extends Component {
                                 <View style={styles.icone} >
                                     <Image source={iconeVolume} />
                                 </View>
-                                <Text style={[styles.buttonLabel, item.cumprido?styles.conclused:styles.notConclused]}>{item.nome}</Text>
+                                <Text style={[styles.buttonLabel, item.cumprido?styles.conclused:styles.notConclused, {backgroundColor:'transparent'} ]}>{item.nome}</Text>
                             </TouchableOpacity>
                         ) )
                     }

@@ -8,6 +8,8 @@ import iconePessoa from '../../../assets/icone-pessoa.png'
 
 import styles from './styles'
 
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar'
+
 class Perfil extends Component {
 
     state = {
@@ -58,7 +60,7 @@ class Perfil extends Component {
     render() {
         return (
             <ImageBackground source={background} style={styles.background}>
-                <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
+                <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
                 <View style={styles.userNameAndPhoto}>
                     <Image source={iconePessoa} />
                     <Text style={styles.nome}>{this.state.nome}</Text>

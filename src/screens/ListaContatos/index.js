@@ -7,6 +7,7 @@ import Firebase from "../../config/firebase.config";
 import iconeContato from './../../../assets/icone-contato-pessoa.png'
 import iconeAdd from './../../../assets/icone-add-branco.png'
 import setaesquerda from '../../../assets/seta-esquerda-branca.png';
+import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
 
 class ListaContatos extends Component {
 
@@ -42,6 +43,7 @@ class ListaContatos extends Component {
     render() {
         return (
             <ImageBackground source={background} style={styles.background}>
+                <FocusAwareStatusBar barStyle='light-content' translucent backgroundColor="transparent" />
                 <View style={styles.title}>
                     <Text style={styles.titleLabel}>CONTATOS</Text>
                 </View>

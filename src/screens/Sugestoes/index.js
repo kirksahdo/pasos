@@ -6,6 +6,7 @@ import Firebase from '../../config/firebase.config';
 
 import background from '../../../assets/background.png';
 import setaesquerda from '../../../assets/seta-esquerda-preta.png';
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
 
 
 class Sugestoes extends Component {
@@ -36,7 +37,7 @@ class Sugestoes extends Component {
         return (
             <ImageBackground source={background} style={styles.background}>
 
-                <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
+                <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
                 <ScrollView style={styles.scroll}>
                     <View style={styles.form}>
                         <View style={styles.header}>

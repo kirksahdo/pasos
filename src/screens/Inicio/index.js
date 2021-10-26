@@ -15,6 +15,7 @@ import macaIco from '../../../assets/maca.png'
 import degraus from '../../../assets/retangulo-degrau.png'
 import linhaY from '../../../assets/linhaY.png'
 import boneco from '../../../assets/user_idle.png'
+import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
 
 class Inicio extends Component {
 
@@ -35,6 +36,7 @@ class Inicio extends Component {
     render() {
         return (
             <ImageBackground source={background} style={styles.background}>
+                <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
                 <ScrollView>
                     <View style={styles.viewDays}>
                         {

@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import background from '../../../assets/black-background.png';
-import { ImageBackground, Text, View, TextInput, ScrollView, TouchableOpacity, Image, StatusBar } from "react-native";
+import { ImageBackground, Text, View, TextInput, ScrollView, TouchableOpacity, Image, Alert } from "react-native";
 import style from './style.js'
 import Firebase from '../../config/firebase.config';
 import ContatoModel from "../../models/contato.model";
 
 import setaesquerda from '../../../assets/seta-esquerda-branca.png';
+import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
 
 class NovoContato extends Component {
     state = {
@@ -19,25 +20,32 @@ class NovoContato extends Component {
         this.uid = Firebase.auth().currentUser.uid
     }
     async saveContato() {
+        let err = this.validateFields();
+        if(err != ''){
+            Alert.alert('Erro', err);
+            return;
+        }
         const id = Date.now().toString()
         const contato = new ContatoModel(id, this.uid, this.state.nome, this.state.contato, this.state.observacao)
         this.database.child(contato.uid).child(id).set(contato).then((_) => {
             alert('Contato salvo com sucesso ...')
-
-            this.setState({nome: '',
-                        contato: '',
-                        observacao: ''});
             this.props.navigation.goBack();
         })
     }
 
-    
+    validateFields = () => {
+        let err = '';
+        if(this.state.nome.trim().length == 0 || this.state.contato.trim().length == 0){
+            err = 'Você deve preencher os campos: nome e contato';
+        }
+        return err;
+    }
 
     render() {
         return (
             <ImageBackground source={background} style={style.background}>
-                <StatusBar barStyle='light-content' translucent backgroundColor="transparent" />
-                <ScrollView style={style.scroll}>
+                <FocusAwareStatusBar barStyle='light-content' translucent backgroundColor="transparent" />
+                <ScrollView style={style.scroll} keyboardShouldPersistTaps='always'>
                     <View>
                         <Text style={style.viewLabelTitle}>ADICIONAR CONTATO</Text>
                     </View>

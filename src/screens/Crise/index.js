@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Image, ImageBackground, StatusBar, Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import background from '../../../assets/black-background.png';
 import iLigar from '../../../assets/icone-notificacoes.png';
 import iLocal from '../../../assets/icone-inicio-ativo.png'
 import styles from './styles';
 import Firebase from "../../config/firebase.config";
+import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
 
 class Crise extends Component {
 
@@ -79,7 +80,7 @@ class Crise extends Component {
 
         return (
             <ImageBackground source={background} style={styles.background}>
-                <StatusBar barStyle='light-content' translucent backgroundColor="transparent" />
+                <FocusAwareStatusBar barStyle='light-content' translucent backgroundColor="transparent" />
                 <View style={styles.buttons}>
 
                     {this.state.existeContatos ? <Contantos /> : <ErroContatos />}

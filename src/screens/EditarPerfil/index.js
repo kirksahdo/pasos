@@ -7,6 +7,8 @@ import Firebase from '../../config/firebase.config';
 import background from '../../../assets/background.png';
 import setaesquerda from '../../../assets/seta-esquerda-preta.png';
 
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
+
 import styles from './styles';
 import { DateUtils } from '../../common/date.utils';
 
@@ -89,8 +91,8 @@ class EditarPerfil extends Component {
         return (
             <ImageBackground source={background} style={styles.background}>
 
-                <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
-                <ScrollView style={styles.scroll}>
+                <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
+                <ScrollView style={styles.scroll} keyboardShouldPersistTaps="always">
                     <View style={styles.form}>
                         <View style={styles.header}>
                             <Text style={styles.headerTitle}>Editar Perfil</Text>

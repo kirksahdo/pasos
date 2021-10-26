@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
-import {View, Text, ImageBackground, ScrollView, StatusBar} from 'react-native';
+import {View, Text, ImageBackground, ScrollView} from 'react-native';
 import moment from 'moment'
 import 'moment/locale/pt-br'
 
+import Firebase from '../../config/firebase.config';
+
 import Calendario from '../../components/Calendario';
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
 
 import background from '../../../assets/white-background.png';
 
@@ -11,14 +14,33 @@ import styles from './styles';
 
 class Estatisticas extends Component{
 
+    state = {
+        daysInApp: 0
+    }
+
     getClickedDay = date => {
         this.props.navigation.push('DiaEspecifico', {date: date.format('YYYY-MM-DD')});
+    }
+
+    componentDidMount(){
+        const id = Firebase.auth().currentUser.uid;
+        const ref = Firebase.database().ref('Users');
+        ref.child(id).get().then(snapshopt => {
+            if(snapshopt.exists()){
+                const user = snapshopt.val();
+                const createdDate = moment(Number.parseInt(user.createdAt))
+                const days = moment().diff(createdDate, 'days');
+                this.setState({daysInApp: days+1})
+            }
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     render(){
         return (
             <ImageBackground source={background} style={styles.background} >
-                <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
+                <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
                 <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                     <View style={styles.texts}>
                         <Text style={styles.primaryText}> você está a </Text> 
@@ -47,7 +69,7 @@ class Estatisticas extends Component{
                     </View>
                     <View style={styles.texts}>
                         <Text style={styles.primaryText}> você está à </Text> 
-                        <Text style={styles.secondaryText}> xx dias </Text> 
+                        <Text style={styles.secondaryText}> {this.state.daysInApp == 1 ? this.state.daysInApp + '  dia': this.state.daysInApp + '  dias'} </Text> 
                         <Text style={styles.primaryText}> acessando o app </Text> 
                     </View>
                 </ScrollView>

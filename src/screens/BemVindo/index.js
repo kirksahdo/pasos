@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {View, Text, StatusBar, StyleSheet, ImageBackground, TouchableHighlight, Image, Dimensions, TouchableOpacity} from 'react-native';
+import {View, Text, StatusBar, ImageBackground, TouchableHighlight, Image, TouchableOpacity} from 'react-native';
 
 import background from '../../../assets/black-background.png';
 import setadireita from '../../../assets/seta-direita-amarela.png';
@@ -8,6 +8,7 @@ import criseIcone from '../../../assets/icone-crise-tutorial.png'
 import setabaixo from '../../../assets/icone-seta-baixo.png'
 
 import styles from './styles';
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
 
 const BemVindo = ({seeTutorial}) => {
 
@@ -38,6 +39,7 @@ const BemVindo = ({seeTutorial}) => {
 
     return (
         <ImageBackground source={background} style={styles.background}>
+            <FocusAwareStatusBar barStyle='light-content' translucent backgroundColor="transparent" />
             <TouchableHighlight style={styles.setaDireita} onPress={next}>
                 <Image source={setadireita} />
             </TouchableHighlight>

@@ -7,6 +7,7 @@ import iconeVolume from '../../../assets/icone-volume.png'
 import iconeVibracao from '../../../assets/icone-vibracao.png'
 
 import styles from './styles';
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
 
 class Geral extends Component {
 
@@ -14,7 +15,7 @@ class Geral extends Component {
         return (
             <ImageBackground source={background} style={styles.background}>
 
-                <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
+                <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
                 <View style={styles.container}>
                     <View style={styles.header}>
                         <Text style={styles.headerTitle}>Geral</Text>

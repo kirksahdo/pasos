@@ -11,10 +11,11 @@ import iconeSair from '../../../assets/icone-sair.png'
 
 
 import styles from './styles';
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
 
 const Configuracoes = ({navigation}) => (
     <ImageBackground source={background} style={styles.background}>
-        <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
+        <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
         <View style={styles.buttons}>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ConfiguracoesEditarPerfil')} >
                 <View style={styles.icone} >

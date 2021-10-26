@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Text, StatusBar, View, ScrollView, ImageBackground, Image, TextInput, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { Text, StatusBar, View, ScrollView, ImageBackground, Image, TextInput, TouchableWithoutFeedback, TouchableOpacity, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
 
@@ -11,6 +11,7 @@ import styles from './styles';
 import UserModel from '../../models/user.model'
 import Firebase from '../../config/firebase.config';
 import { DateUtils } from '../../common/date.utils';
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
 
 const Cadastro = ({ navigation }) => {
 
@@ -26,10 +27,21 @@ const Cadastro = ({ navigation }) => {
     const database = Firebase.database()
     const authentication = Firebase.auth()
 
+    const nomeRef = useRef('');
+    const emailRef = useRef('');
+    const pesoRef = useRef('');
+    const alturaRef = useRef('');
+    const senhaRef = useRef('');
+    const senhaRepetidaRef = useRef('');
+
 
     async function register() {
+        let err = validateFields();
+        if(err != ''){
+            Alert.alert('Erro', err);
+            return;
+        }
         try {
-
             await authentication.createUserWithEmailAndPassword(email, senha).then(async (userCredentials) => {
                 const user = new UserModel(userCredentials.user.uid, nome, email, altura, dataDeNascimento, peso)
                 await database.ref(`Users`).child(user.uid).set(user);
@@ -44,8 +56,7 @@ const Cadastro = ({ navigation }) => {
             })
 
         } catch (error) {
-            console.error(error)
-            alert(error)
+            Alert.alert('Erro', error.toString())
         }
     }
 
@@ -60,22 +71,54 @@ const Cadastro = ({ navigation }) => {
     };
 
 
+    function validateFields(){
+        let err = '';
+        if(nome.trim().length == 0 || email.trim().length == 0 || dataDeNascimentoEditado.trim().length == 0 || peso.trim().length == 0
+        || peso.trim().length == 0 || altura.trim().length == 0 || senha.trim().length == 0 || senhaRepetida.trim().length == 0 ){
+            err = 'Você deve preencher todos os campos!'
+        }
+        if(senhaRepetida != senha){
+            err = 'Ambas as senhas devem ser iguais!'
+        }
+        return err;
+    }
+
     return (
         <ImageBackground source={background} style={styles.background}>
-            <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
-
-            <View style={styles.logo}>
-                <Image source={logo} style={{ margin: 20 }} />
-            </View>
-            <ScrollView style={styles.scrollView} >
+            <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
+            
+            <ScrollView style={styles.scrollView} keyboardShouldPersistTaps="always" >
+                <View style={styles.logo}>
+                    <Image source={logo} style={{ margin: 20 }} />
+                </View>
                 <View style={styles.form}>
                     <View style={styles.header} >
                         <Text style={styles.headerTitle}>Cadastro</Text>
                     </View>
                     
                     <View style={styles.inputs}>
-                        <TextInput style={styles.txtInput} placeholder='NOME COMPLETO' placeholderTextColor='#7d7d7d' value={nome} onChangeText={txt => setNome(txt)} />
-                        <TextInput keyboardType='email-address' style={styles.txtInput} placeholder='EMAIL' placeholderTextColor='#7d7d7d' value={email} onChangeText={txt => setEmail(txt)} />
+                        <TextInput style={styles.txtInput} 
+                            placeholder='NOME COMPLETO' 
+                            placeholderTextColor='#7d7d7d' 
+                            value={nome} 
+                            onChangeText={txt => setNome(txt)}
+                            ref={nomeRef}
+                            returnKeyType="next"
+                            onSubmitEditing={() => {
+                                emailRef.current.focus();
+                            }}
+                            blurOnSubmit={false} />
+                        <TextInput keyboardType='email-address' style={styles.txtInput}
+                            placeholder='EMAIL' 
+                            placeholderTextColor='#7d7d7d' 
+                            value={email} onChangeText={txt => setEmail(txt)}
+                            ref={emailRef}
+                            returnKeyType="next"
+                            onSubmitEditing={() => {
+                                emailRef.current.blur();
+                                setShowDate(true);
+                            }}
+                            blurOnSubmit={false} />
                         <TouchableOpacity
                                 onPress={() => setShowDate(true)} >
                                 <TextInput
@@ -98,10 +141,52 @@ const Cadastro = ({ navigation }) => {
                                     />
                                 )
                             }
-                        <TextInput placeholder='PESO' keyboardType="decimal-pad" style={styles.txtInput} value={peso} onChangeText={text => setPeso(text)} />
-                        <TextInput placeholder='ALTURA' keyboardType="decimal-pad" style={styles.txtInput} value={altura} onChangeText={text => setAltura(text)} />
-                        <TextInput secureTextEntry={true} style={styles.txtInput} placeholder='SENHA' placeholderTextColor='#7d7d7d' value={senha} onChangeText={txt => setSenha(txt)} />
-                        <TextInput secureTextEntry={true} style={styles.txtInput} placeholder='REPITA A SENHA' placeholderTextColor='#7d7d7d' value={senhaRepetida} onChangeText={txt => setSenhaRepetida(txt)} />
+                        <TextInput placeholder='PESO' keyboardType="decimal-pad" style={styles.txtInput} 
+                            value={peso} 
+                            onChangeText={text => setPeso(text)}
+                            ref={pesoRef}
+                            returnKeyType="next"
+                            onSubmitEditing={() => {
+                                alturaRef.current.focus();
+                            }}
+                            blurOnSubmit={false} />
+                        <TextInput 
+                            placeholder='ALTURA' 
+                            keyboardType="decimal-pad" 
+                            style={styles.txtInput} 
+                            value={altura} 
+                            onChangeText={text => setAltura(text)}
+                            ref={alturaRef}
+                            returnKeyType="next"
+                            onSubmitEditing={() => {
+                                senhaRef.current.focus();
+                            }}
+                            blurOnSubmit={false} />
+                        <TextInput 
+                            secureTextEntry={true} 
+                            style={styles.txtInput} 
+                            placeholder='SENHA' 
+                            placeholderTextColor='#7d7d7d' 
+                            value={senha} onChangeText={txt => setSenha(txt)}
+                            ref={senhaRef}
+                            returnKeyType="next"
+                            onSubmitEditing={() => {
+                                senhaRepetidaRef.current.focus();
+                            }}
+                            blurOnSubmit={false} />
+                        <TextInput 
+                            secureTextEntry={true} 
+                            style={styles.txtInput} 
+                            placeholder='REPITA A SENHA' 
+                            placeholderTextColor='#7d7d7d' 
+                            value={senhaRepetida} onChangeText={txt => setSenhaRepetida(txt)}
+                            ref={senhaRepetidaRef}
+                            returnKeyType="go"
+                            onSubmitEditing={() => {
+                                senhaRepetidaRef.current.blur();
+                                register();
+                            }}
+                            blurOnSubmit={false} />
                     </View>
                     <View style={styles.buttons}>
                         <TouchableWithoutFeedback >
@@ -112,10 +197,10 @@ const Cadastro = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </ScrollView>
-            <TouchableOpacity style={styles.crise}>
+                <TouchableOpacity style={styles.crise}>
                 <Image source={crise} />
             </TouchableOpacity>
+            </ScrollView> 
         </ImageBackground>
 
     );

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Text, View, StatusBar, ImageBackground, Image, TextInput, TouchableWithoutFeedback, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { Text, View, ImageBackground, Image, TextInput, TouchableWithoutFeedback, TouchableOpacity, Alert } from 'react-native';
 
 import background from '../../../assets/background.png';
 import logo from '../../../assets/logo-preta-2.png';
@@ -8,6 +8,7 @@ import crise from '../../../assets/esta-tendo-uma-crise.png';
 import Firebase from '../../config/firebase.config';
 
 import styles from './styles';
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
 
 
 const Login = ({ navigation, login }) => {
@@ -16,16 +17,18 @@ const Login = ({ navigation, login }) => {
     const [senha, setSenha] = useState('');
     const authentication = Firebase.auth()
 
+    const emailRef = useRef();
+    const senhaRef = useRef();
+
     async function setAuth() {
         authentication.signInWithEmailAndPassword(email, senha).catch((error) => {
-            console.error(error)
-            alert(error)
+            Alert.alert('Erro', error.toString());
         })
     }
 
     return (
         <ImageBackground source={background} style={styles.background}>
-            <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
+            <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
 
             <View style={styles.logo}>
                 <Image source={logo} style={{ margin: 20 }} />
@@ -35,8 +38,31 @@ const Login = ({ navigation, login }) => {
                     <Text style={styles.headerTitle}>Login</Text>
                 </View>
                 <View style={styles.inputs}>
-                    <TextInput keyboardType='email-address' style={styles.txtInput} placeholder='EMAIL' placeholderTextColor='#7d7d7d' value={email} onChangeText={txt => setEmail(txt)} />
-                    <TextInput secureTextEntry={true} style={styles.txtInput} placeholder='SENHA' placeholderTextColor='#7d7d7d' value={senha} onChangeText={txt => setSenha(txt)} />
+                    <TextInput keyboardType='email-address'
+                        style={styles.txtInput}
+                        placeholder='EMAIL'
+                        placeholderTextColor='#7d7d7d'
+                        value={email} onChangeText={txt => setEmail(txt)}
+                        ref={emailRef}
+                        returnKeyType="next"
+                        onSubmitEditing={() => {
+                            senhaRef.current.focus();
+                        }}
+                        blurOnSubmit={false} />
+                    <TextInput 
+                        secureTextEntry={true} 
+                        style={styles.txtInput} 
+                        placeholder='SENHA' 
+                        placeholderTextColor='#7d7d7d' 
+                        value={senha} 
+                        onChangeText={txt => setSenha(txt)} 
+                        ref={senhaRef}
+                        returnKeyType="done"
+                        onSubmitEditing={() => {
+                            senhaRef.current.blur();
+                            setAuth();
+                        }}
+                        blurOnSubmit={false}/>
                 </View>
                 <View style={styles.buttons}>
                     <TouchableWithoutFeedback >

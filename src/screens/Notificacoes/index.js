@@ -6,6 +6,7 @@ import setaesquerda from '../../../assets/seta-esquerda-preta.png';
 import iconeVolume from '../../../assets/icone-volume.png'
 
 import styles from './styles';
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
 
 class Notificacoes extends Component {
 
@@ -13,7 +14,7 @@ class Notificacoes extends Component {
         return (
             <ImageBackground source={background} style={styles.background}>
 
-                <StatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
+                <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
                 <View style={styles.container}>
                     <View style={styles.header}>
                         <Text style={styles.headerTitle}>NOTIFICAÇÕES</Text>
