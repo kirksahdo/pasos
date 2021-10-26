@@ -2,8 +2,7 @@ import { StyleSheet, StatusBar, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
     background: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+        flex: 1,
         paddingTop: StatusBar.currentHeight
     },
     logo: {

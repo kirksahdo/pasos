@@ -123,6 +123,7 @@ const Cadastro = ({ navigation }) => {
                                 onPress={() => setShowDate(true)} >
                                 <TextInput
                                     placeholder='DATA DE NASCIMENTO'
+                                    placeholderTextColor='#7d7d7d' 
                                     style={styles.txtInput}
                                     value={dataDeNascimentoEditado}
                                     editable={false}
@@ -143,6 +144,7 @@ const Cadastro = ({ navigation }) => {
                             }
                         <TextInput placeholder='PESO' keyboardType="decimal-pad" style={styles.txtInput} 
                             value={peso} 
+                            placeholderTextColor='#7d7d7d' 
                             onChangeText={text => setPeso(text)}
                             ref={pesoRef}
                             returnKeyType="next"
@@ -152,6 +154,7 @@ const Cadastro = ({ navigation }) => {
                             blurOnSubmit={false} />
                         <TextInput 
                             placeholder='ALTURA' 
+                            placeholderTextColor='#7d7d7d' 
                             keyboardType="decimal-pad" 
                             style={styles.txtInput} 
                             value={altura} 
