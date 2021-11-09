@@ -33,6 +33,12 @@ class Inicio extends Component {
         ],
         dayWorkContext: 0
     }
+
+    gotToQuestionary(){
+        this.props.navigation.navigate("PreQuestionario")
+    }
+
+
     render() {
         return (
             <ImageBackground source={background} style={styles.background}>
@@ -91,7 +97,7 @@ class Inicio extends Component {
                             </View>
                             <Text style={styles.buttonLabelY}>DESAFIO</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonB} >
+                        <TouchableOpacity style={styles.buttonB} onPress={()=> this.gotToQuestionary()}>
                             <View style={styles.icone} >
                                 <Image source={questionarioIco} />
                             </View>

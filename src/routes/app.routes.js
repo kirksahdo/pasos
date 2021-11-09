@@ -18,6 +18,8 @@ import iconePerfilAtivo from './../../assets/icone-perfil-ativo.png'
 import iconeConfiguracoes from './../../assets/icone-configuracoes.png'
 import iconeConfiguracoesAtivo from './../../assets/icone-configuracoes-ativo.png'
 import Inicio from '../screens/Inicio';
+import Questionario from '../screens/Questionario';
+import InicioRoutes from './inicio.routes';
 
 
 const Tab = createBottomTabNavigator();
@@ -56,7 +58,7 @@ const AppRoutes = () => (
             tabBarHideOnKeyboard: true
         })}
     >
-        <Tab.Screen name='Inicio' component={Inicio} />
+        <Tab.Screen name='Inicio' component={InicioRoutes} />
         <Tab.Screen name='Estatisticas' component={EstatisticasRoutes} />
         <Tab.Screen name='Crise' component={CriseRoutes} />
         <Tab.Screen name='Perfil' component={Perfil} />
