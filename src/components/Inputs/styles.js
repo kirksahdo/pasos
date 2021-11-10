@@ -1,6 +1,11 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+    viewAlignOptions:{
+        
+        marginTop:40,
+        alignItems:'center'
+    },
     viewAlign:{
         display:'flex',
         justifyContent:'center',
@@ -32,6 +37,20 @@ const styles = StyleSheet.create({
     },
     label:{
         color:'#000'
+    },
+    optionInputView:{
+        padding:10,
+        borderColor:'#000',
+        borderWidth:3,
+        width:'80%',
+        margin:10,
+        padding:20,
+        borderRadius:15,
+    },
+    optionText:{
+        color:'#000',
+        fontSize:20,
+        textAlign:'center'
     }
 })
 export default styles

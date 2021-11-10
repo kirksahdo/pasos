@@ -3,7 +3,8 @@ import {StatusBar, StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        paddingTop: StatusBar.currentHeight + 20
+        paddingTop: StatusBar.currentHeight + 20,
+        height:'100%'
     },
     goBackArea:{
         padding:20
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
         color:'#000'
     },
     imgPersonagem:{
-        marginTop:'40%',
+        marginTop:'20%',
         marginLeft:'10%'
     },
     alignFlex:{
@@ -36,6 +37,16 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         
+    },
+    scroll:{
+        height: '100%',
+        marginBottom:80
+    },
+    viewMain:{
+        width:'100%',
+        height:'70%',
+        display:'flex',
+        justifyContent:'space-between'
     }
 })
 export default styles;

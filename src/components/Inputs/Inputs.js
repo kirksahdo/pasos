@@ -1,8 +1,6 @@
 import React from 'react'
 import {Text, TextInput, View} from 'react-native'
 
-import retangleSelector from '../../../assets/retangle-rounded-blank.png'
-
 
 import styles from './styles'
 
@@ -32,6 +30,31 @@ export function DateSelectQuestion(){
                 <TextInput placeholder="00" placeholderTextColor="#000" style={styles.textInputDate}></TextInput>
                 <Text style={styles.label}>MESES</Text>
             </View>
+        </View>
+    )
+}
+
+export function SelectInputQuestion(
+    {listSelect=[]}
+){
+    let list=[]
+    for(var i =0;i<listSelect.length;i++){
+        if(listSelect[i]){
+            
+        list.push(
+            (
+                <View style={styles.optionInputView}>
+                    <Text style={styles.optionText}>{
+                        listSelect[i]['descricao']? listSelect[i]['descricao']:'pergunta'
+                    }</Text>
+                </View>
+            )
+        )
+        }
+    }
+    return(
+        <View style={styles.viewAlignOptions}>
+            {list}
         </View>
     )
 }

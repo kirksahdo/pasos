@@ -12,7 +12,7 @@ import setaInferiorIda from '../../../assets/seta-ida-preta.png'
 
 
 import styles from './styles'
-import { DateSelectQuestion, TextInputQuestion } from "../../components/Inputs/Inputs";
+import { DateSelectQuestion, SelectInputQuestion, TextInputQuestion } from "../../components/Inputs/Inputs";
 import { DotProgressIndicator } from "../../components/DotProgressIndicator";
 
 class Questionario extends Component{
@@ -23,7 +23,8 @@ class Questionario extends Component{
     state ={
         concluido:false,
         questionary:[],
-        currentQuestion:0
+        currentQuestion:0,
+        currentQuestionarySet:'S1'
     }
     currentDate = moment().format('YYYY-MM-DD')
     user = Firebase.auth().currentUser;
@@ -52,6 +53,7 @@ class Questionario extends Component{
                         numberLastQuestionary=0
                     }
                     currentQuestionarySet = "S"+(numberLastQuestionary+1)
+                    
                     const ref = this.database
                         .ref('Questionario')
                         .child(currentQuestionarySet)
@@ -62,7 +64,8 @@ class Questionario extends Component{
                         
                         this.setState({
                             questionary: [...questionarioArray],
-                            currentQuestion:1
+                            currentQuestion:1,
+                            currentQuestionarySet:currentQuestionarySet
                         })
                         
                     })
@@ -73,10 +76,14 @@ class Questionario extends Component{
         
         
         
-    }
+    } 
 
-    opterTipoInput(input){
+    opterTipoInput(id){
+        const input = this.state.questionary[id].input
         switch(input){
+            case 'select':
+                const list=this.state.questionary[id].opcoes
+                return (<SelectInputQuestion listSelect={list} />)
             case 'date':
                 return (<DateSelectQuestion/>)
             default:
@@ -84,31 +91,65 @@ class Questionario extends Component{
         }
     }
 
+    proximaQuestao(){
+        let nValue = this.state.currentQuestion+1
+        if(nValue<=this.state.questionary.length){
+            this.setState({currentQuestion:nValue})
+        }else if(nValue>=this.state.questionary.length){
+            this.database.ref('Users').child(this.user.uid).update(
+                {
+                    lastQuestionary:this.state.currentQuestionarySet
+                }
+            )
+            const key = this.database.ref('Atividades')
+                .child(this.user.uid)
+                .child(moment().format('YYYY-MM-DD')).push().key;
+            
+            this.database.ref('Atividades').child(this.user.uid).child(moment().format('YYYY-MM-DD')).child(key).set({
+                    id: key,
+                    tipo: 'Questionario',
+                    nome: 'Questionario '+this.state.currentQuestionarySet,
+                    concluido: true,
+                });
+            this.props.navigation.navigate('Dashboard')
+        }
+    }
+    anteriorQuestao(){
+        let nValue = this.state.currentQuestion-1
+        if(nValue>=0){
+            this.setState({currentQuestion:nValue})
+        }
+    }
     validarProximoQuestionario(){
         if(!this.state.concluido && this.state.currentQuestion){
             return (
-                <View>
-                    <Text style={styles.progressNumberText}>{this.state.currentQuestion}/{this.state.questionary.length}</Text>
-                    <Text style={styles.questionDescription}>
+                <View style={styles.viewMain}>
+                    <View>
+                        <Text style={styles.progressNumberText}>{this.state.currentQuestion}/{this.state.questionary.length}</Text>
+                        <Text style={styles.questionDescription}>
+                            {
+                                this.state.questionary[this.state.currentQuestion-1].descricao?
+                                    this.state.questionary[this.state.currentQuestion-1].descricao:
+                                'Erro na Pergunta'
+                            }
+                        </Text>
                         {
-                            this.state.questionary[this.state.currentQuestion-1].descricao?
-                            this.state.questionary[this.state.currentQuestion-1].descricao:
-                            'Erro na Pergunta'
+                            this.opterTipoInput(
+                                this.state.currentQuestion-1
+                                )
                         }
-                    </Text>
-                    {
-                        this.opterTipoInput(this.state.questionary[this.state.currentQuestion-1].input)
-                    }
+                    </View>
                     
-                    <Image source={pensonagem} style={styles.imgPersonagem} />      
+                    <Image source={pensonagem} style={styles.imgPersonagem} />
+
                     <View>
                         <View style={styles.alignFlex}>
-                            <Image source={setaInferiorVoltar} />
+                            <Image source={setaInferiorVoltar} onTouchStart={()=>this.anteriorQuestao()}/>
                             <DotProgressIndicator 
                                 numDots={this.state.questionary.length} 
                                 currentProgess={this.state.currentQuestion}
-                                />
-                            <Image source={setaInferiorIda} />
+                            />
+                            <Image source={setaInferiorIda} onTouchStart={()=>this.proximaQuestao()}/>
                         </View>
                     </View>     
                 </View>
@@ -123,18 +164,18 @@ class Questionario extends Component{
 
     render(){
         return (
+            
             <ImageBackground style={styles.background} source={background}>
-                <ScrollView>
+                <ScrollView style={styles.scroll}>
                     <View style={styles.goBackArea} onTouchStart={()=> this.cancelAction()}>
                         <Image source={setaVoltar} style={styles.imgGoBackArea}/>
                     </View>
-                    <View>
-                        {
-                            this.validarProximoQuestionario()
-                        }
-                    </View>
+                    {
+                        this.validarProximoQuestionario()
+                    }
                 </ScrollView>
             </ImageBackground>
+            
         )
     }
 }
