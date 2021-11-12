@@ -10,7 +10,7 @@ export const ProcessDashboardContextProvider = ({children}) => {
 
     const [concluiuQuestionario,setConcluiuQuestionario] = useState(false)
     const [currentQuestion,setCurrentQuestion] = useState(0)
-    const [currentQuestionaryName,setCurrentQuestionaryName] = useState('S1')
+    const [currentQuestionaryName,setCurrentQuestionaryName] = useState(-1)
     const [questionary,setQuestionary] = useState([])
     const [navigation,setNavigation] = useState(()=>{})
 
@@ -28,23 +28,22 @@ export const ProcessDashboardContextProvider = ({children}) => {
                 })
             }
         })
-        let currentQuestionarySet = 'S1'
+        let currentQuestionarySet = 0
         database.ref('Users').child(user.uid).get().then(userData=>{
-            var lastQuestionary = ""+userData.toJSON().lastQuestionary
-            if(!lastQuestionary){
-                lastQuestionary="S0"
+            var lastQuestionary = userData.toJSON().lastQuestionary
+            if(lastQuestionary==null){
+                lastQuestionary=-1
             }
-            if(lastQuestionary){
-                let numberLastQuestionary = Number.parseInt(lastQuestionary.split('S')[1])
-                if(!isNaN(numberLastQuestionary)){
-                    if((numberLastQuestionary+1)>=14){
-                        numberLastQuestionary=0
-                    }
-                    currentQuestionarySet = "S"+(numberLastQuestionary+1)
-
-                    const ref = database
-                        .ref('Questionario')
-                        .child(currentQuestionarySet)
+            if(!isNaN(lastQuestionary)){
+                currentQuestionarySet = lastQuestionary+1
+                if((currentQuestionarySet)>=11){
+                    currentQuestionarySet=0
+                }
+                console.log(currentQuestionarySet)
+                
+                const ref = database
+                    .ref('Questionario')
+                    .child(currentQuestionarySet)
                     
                     ref.on('value', querySnapShot => {
                         var questionarioArray = []
@@ -55,7 +54,6 @@ export const ProcessDashboardContextProvider = ({children}) => {
                     })
                         
                 }
-            }
         })
         
         
