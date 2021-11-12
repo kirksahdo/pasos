@@ -35,7 +35,10 @@ export function DateSelectQuestion(){
 }
 
 export function SelectInputQuestion(
-    {listSelect=[]}
+    {
+        listSelect=[],
+        onItemSelected = ()=>{}
+    }
 ){
     let list=[]
     for(var i =0;i<listSelect.length;i++){
@@ -43,7 +46,7 @@ export function SelectInputQuestion(
             
         list.push(
             (
-                <View style={styles.optionInputView}>
+                <View style={styles.optionInputView} onTouchStart={onItemSelected} key={i}>
                     <Text style={styles.optionText}>{
                         listSelect[i]['descricao']? listSelect[i]['descricao']:'pergunta'
                     }</Text>
