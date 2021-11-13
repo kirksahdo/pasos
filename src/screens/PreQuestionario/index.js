@@ -14,6 +14,7 @@ class PreQuestionario extends Component{
         this.props.navigation.goBack(null)
     }
     nextAction(){
+        this.props.navigation.goBack(null)
         this.props.navigation.navigate('Questionario')
     }
 

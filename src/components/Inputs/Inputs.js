@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, TextInput, View} from 'react-native'
+import {Text, TextInput, TouchableOpacity, View} from 'react-native'
 
 
 import styles from './styles'
@@ -35,7 +35,10 @@ export function DateSelectQuestion(){
 }
 
 export function SelectInputQuestion(
-    {listSelect=[]}
+    {
+        listSelect=[],
+        onItemSelected = ()=>{}
+    }
 ){
     let list=[]
     for(var i =0;i<listSelect.length;i++){
@@ -43,11 +46,11 @@ export function SelectInputQuestion(
             
         list.push(
             (
-                <View style={styles.optionInputView}>
+                <TouchableOpacity style={styles.optionInputView} onPress={onItemSelected} key={i}>
                     <Text style={styles.optionText}>{
                         listSelect[i]['descricao']? listSelect[i]['descricao']:'pergunta'
                     }</Text>
-                </View>
+                </TouchableOpacity>
             )
         )
         }

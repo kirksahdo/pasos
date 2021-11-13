@@ -83,9 +83,6 @@ class AdicionarEvento extends Component {
         }catch(err){
             Alert.alert('Erro, contate o administrador do sistema!', err.toString());
         }
-        finally{
-            this.setState({loading:false})
-        }
     }  
     
 

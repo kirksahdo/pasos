@@ -82,7 +82,7 @@ class Inicio extends Component {
                     <View style={styles.viewDays}>
                         {
                             this.state.days.map((item, index) => (
-                                <CardDays key={item.format('YYYY-MM-DD')} index={index} day={item.date()} dayWeek={DateUtils.getDayofWeekBR(item.weekday())} isComplet={index < 2} />
+                                <CardDays key={index} index={index} day={item.date()} dayWeek={DateUtils.getDayofWeekBR(item.weekday())} isComplet={index < 2} />
                             ))
                         }
                     </View>
@@ -123,10 +123,6 @@ class Inicio extends Component {
                         <EventButton tipo='addEvento' 
                             nome='ADICIONAR EVENTO' 
                             onPress={() => this.props.navigation.navigate('AdicionarEvento')} />
-
-                        <EventButton tipo='desafio' 
-                            nome='Desafio' 
-                            onPress={() => ''} />
                         {
                         this.state.events && this.state.events.map(item => (
                             <EventButton 

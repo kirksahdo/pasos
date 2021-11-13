@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontFamily: 'pompadour',
         marginTop: 5,
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
+        flex: 1
     },
     buttonLabelB: {
         color: '#FFF',

@@ -12,7 +12,7 @@ export function DotProgressIndicator(
             styledot = styles.blackDot;
         }
         row.push(
-            <View style={[styledot,styles.dotStyle]}>
+            <View style={[styledot,styles.dotStyle]} key={i}>
             </View>
         )
     }

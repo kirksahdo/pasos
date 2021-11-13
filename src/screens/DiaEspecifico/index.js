@@ -110,7 +110,7 @@ class DiaEspecifico extends Component {
                             <View style={[styles.circle, {backgroundColor: '#000'}]} />
                             <Text style={styles.labelLegenda}> Atividade Cumprida</Text>
                         </View>
-                        <View style={{width: '100%', flexDirection: 'row', alignItems: 'center', marginVertical: 2}}>
+                        <View style={{width: '100%', flexDirection: 'row', alignItems: 'center', marginVertical: 2, marginBottom: 200}}>
                             <View style={[styles.circle, {backgroundColor: '#fff'}]} />
                             <Text style={styles.labelLegenda}> Atividade Não Cumprida</Text>
                         </View>
