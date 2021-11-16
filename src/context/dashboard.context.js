@@ -9,8 +9,13 @@ export const ProcessDashboardContext = createContext({})
 export const ProcessDashboardContextProvider = ({children}) => {
 
     const [concluiuQuestionario,setConcluiuQuestionario] = useState(false)
+    const [concluiuDesafio,setConcluiuDesafio] = useState(false)
+
+    const [currentChallenge,setCurrentChallenge] = useState(0)
     const [currentQuestion,setCurrentQuestion] = useState(0)
     const [currentQuestionaryName,setCurrentQuestionaryName] = useState(-1)
+
+    const [challenge,setChallenge] = useState({})
     const [questionary,setQuestionary] = useState([])
     const [navigation,setNavigation] = useState(()=>{})
 
@@ -18,12 +23,15 @@ export const ProcessDashboardContextProvider = ({children}) => {
     const user = Firebase.auth().currentUser;
     const currentDate = moment().format('YYYY-MM-DD')
 
-    function loadQuestionary(){
+    function loadTasks(){
         database.ref('Atividades').child(user.uid).child(currentDate).get().then((items)=>{
             if(items){
                 items.forEach((item)=>{
-                    if(item.toJSON().tipo =='Questionario' && item.toJSON().concluiuQuestionario){
+                    if(item.toJSON().tipo =='Questionario' && item.toJSON().concluiu){
                         setConcluiuQuestionario(true)
+                    }
+                    if(item.toJSON.tipo=="Desafio" && item.toJSON().concluiu){
+                        setConcluiuDesafio(true)
                     }
                 })
             }
@@ -31,21 +39,24 @@ export const ProcessDashboardContextProvider = ({children}) => {
         let currentQuestionarySet = 0
         database.ref('Users').child(user.uid).get().then(userData=>{
             var lastQuestionary = userData.toJSON().lastQuestionary
+            var lastChallenge = userData.toJSON().lastChallenge
             if(lastQuestionary==null){
                 lastQuestionary=-1
+            }
+            if(lastChallenge == null){
+                lastChallenge = -1
             }
             if(!isNaN(lastQuestionary)){
                 currentQuestionarySet = lastQuestionary+1
                 if((currentQuestionarySet)>=11){
                     currentQuestionarySet=0
                 }
-                console.log(currentQuestionarySet)
                 
-                const ref = database
+                const refQuestionary = database
                     .ref('Questionario')
                     .child(currentQuestionarySet)
                     
-                    ref.on('value', querySnapShot => {
+                    refQuestionary.on('value', querySnapShot => {
                         var questionarioArray = []
                         querySnapShot.forEach(item => {questionarioArray.push(item.val())})
                         setQuestionary([...questionarioArray])
@@ -53,13 +64,27 @@ export const ProcessDashboardContextProvider = ({children}) => {
                         setCurrentQuestionaryName(currentQuestionarySet)
                     })
                         
+            }
+            if(!isNaN(lastChallenge)){
+                var currentChallengeSet = lastChallenge+1
+                if((currentChallengeSet)>=8){
+                    currentChallengeSet=0
                 }
+                const refChallenge = database
+                    .ref('Desafios')
+                    .child(currentChallengeSet)
+                    
+                refChallenge.on('value', querySnapShot => {
+                    setChallenge(querySnapShot.toJSON())
+                    setCurrentChallenge(currentChallengeSet)
+                })
+            }
         })
         
         
     }
     useEffect(()=>{
-        loadQuestionary()
+        loadTasks()
     },[])
 
     function proximaQuestao(){
@@ -93,7 +118,30 @@ export const ProcessDashboardContextProvider = ({children}) => {
             setCurrentQuestion(nValue)
         }
     }
-
+    function concluirDesafio(){
+        //INSERIR COMO CONCLUIDO DESAFIO DO DIA
+        database.ref('Atividades')
+            .child(user.uid)
+            .child(moment().format('YYYY-MM-DD'))
+            .on('value', snapshot => {
+            if(snapshot.exists()){
+                let data = [];
+                snapshot.forEach((child) => {
+                    console.log(child.ref)
+                    if(child.val().tipo =="desafio"){
+                        child.ref.update({
+                            concluido:true
+                        })
+                    }
+                });
+            }
+        });
+        database.ref('Users').child(user.uid).update(
+            {
+                lastChallenge:currentChallenge
+            }
+        )
+    }
     return (
         <ProcessDashboardContext.Provider value={
             {
@@ -103,7 +151,11 @@ export const ProcessDashboardContextProvider = ({children}) => {
                 questionary,
                 proximaQuestao,
                 anteriorQuestao,
-                setNavigation
+                setNavigation,
+                challenge,
+                concluiuDesafio,
+                currentChallenge,
+                concluirDesafio
             }
             } >
             {children}

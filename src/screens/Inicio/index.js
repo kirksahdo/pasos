@@ -58,6 +58,7 @@ class Inicio extends Component {
                         return 0;
                     })
                     this.setState({events: data})
+                    console.log(data)
                 }
                 this.setState({loading: false})
             });
@@ -72,6 +73,16 @@ class Inicio extends Component {
 
     componentWillUnmount(){
         this.databaseRef.off('value', this.listener);
+    }
+    getNavigateEvent(tipo){
+        switch(tipo){
+            case 'questionario':
+                return () => this.props.navigation.navigate('PreQuestionario')
+            case 'desafio':
+                return () => this.props.navigation.navigate('Desafio')
+            default:
+                return null
+        }
     }
 
     render() {
@@ -122,14 +133,17 @@ class Inicio extends Component {
                     <View style={styles.buttons}>
                         <EventButton tipo='addEvento' 
                             nome='ADICIONAR EVENTO' 
-                            onPress={() => this.props.navigation.navigate('AdicionarEvento')} />
+                            onPress={() => this.props.navigation.navigate('AdicionarEvento')} key={0} />
                         {
                         this.state.events && this.state.events.map(item => (
+
                             <EventButton 
                                 key={item.id}
                                 tipo={item.tipo}
+                                onPress={this.getNavigateEvent(item.tipo)}
                                 nome={item.horario ? item.nome + ' - ' + item.horario : item.nome}
                                 concluido={item.concluido}/>
+                                
                         ))
                         }
 
