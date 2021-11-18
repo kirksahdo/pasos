@@ -54,7 +54,6 @@ class DiaEspecifico extends Component {
     getEvents = () => {
         try{    
             const currentUser = Firebase.auth().currentUser;
-            console.log(this.props.route.params.date);
             this.databaseRef = Firebase
                 .database()
                 .ref('Atividades')
@@ -98,7 +97,7 @@ class DiaEspecifico extends Component {
                     <ScrollView showsVerticalScrollIndicator={false}>
                     {
                         this.state.events.map( item => (
-                            <TouchableOpacity style={[styles.button, item.concluido?styles.conclused:styles.notConclused]} key={item.id}>
+                            <TouchableOpacity style={[styles.button, item.concluido?styles.conclused:styles.notConclused]} key={`${item.id}`}>
                                 <View style={styles.icone} >
                                     <Image source={this.getIcon(item.tipo, item.concluido)} />
                                 </View>

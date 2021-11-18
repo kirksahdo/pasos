@@ -5,7 +5,25 @@ import 'moment/locale/pt-br'
 
 import styles from './styles';
 
-const Calendario = ({day, getClickedDay, fontSize, width, height}) => {
+const Calendario = ({day, getClickedDay, fontSize, width, height, events=[]}) => {
+
+    const dateIsInEvents = (date) => {
+        let is = false;
+        events.forEach(ev => {
+            if(ev.date == date){
+                is = true;
+            }
+        });
+        return is;
+    }
+
+    const dateIsConclused = (date) => {
+        let is = false;
+        events.forEach(ev => {
+            if(ev.date == date) is = !!ev.conclused;
+        });
+        return is;
+    }
 
     var weekDayStart = moment(day).startOf('month').isoWeekday() + 1;
     if(weekDayStart == 8){
@@ -27,10 +45,12 @@ const Calendario = ({day, getClickedDay, fontSize, width, height}) => {
             }
             if(start > 0){
                 let value = moment(day).startOf('month').add(start-1, 'd');
-                let condition = moment(day).isSameOrAfter(value);
+                let currentDay = value.format('YYYY-MM-DD');
+                let condition = dateIsInEvents(currentDay);
+                let conclused = dateIsConclused(currentDay);
                 linha.push( (
-                    <TouchableOpacity style={styles.day} key={key++} onPress={(e) =>  condition ? getClickedDay( value ) : null }>
-                        <Text style={[styles.dayLabel, {fontSize: fontSize, width: fontSize+10, height: fontSize+10} , condition ? styles.dayNotConclused : {}]}>
+                    <TouchableOpacity style={styles.day} key={key++} onPress={(e) =>  getClickedDay( value ) }>
+                        <Text style={[styles.dayLabel, {fontSize: fontSize, width: fontSize+10, height: fontSize+10} , condition ? (conclused ? styles.dayConclused : styles.dayNotConclused) : {}]}>
                             {start >= 1 && start <= 9?`0${start}`:start}
                         </Text>
                     </TouchableOpacity>
@@ -54,7 +74,7 @@ const Calendario = ({day, getClickedDay, fontSize, width, height}) => {
     return(
         <View style={{width: width, height: height }}>
             <View style={styles.header}>
-                <Text style={[styles.headerTitle, {fontSize: fontSize + 10}]}>{moment(day).format('MMMM')}</Text>
+                <Text style={[styles.headerTitle, {fontSize: fontSize + 10}]}>{moment(day).format('MMMM [-] YYYY')}</Text>
             </View>
             <View style={styles.days}>
                 {

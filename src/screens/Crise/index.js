@@ -6,11 +6,13 @@ import iLocal from '../../../assets/icone-inicio-ativo.png'
 import styles from './styles';
 import Firebase from "../../config/firebase.config";
 import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
+import Loading from "../../components/Loading";
 
 class Crise extends Component {
 
     state = {
-        existeContatos : false
+        existeContatos : false,
+        loading: true
     }
     constructor(props) {
         super(props)
@@ -26,7 +28,8 @@ class Crise extends Component {
     getContatos() {
         this.database.child(this.uid).on('value', querySnapShot => {
             this.setState({
-                existeContatos: !!querySnapShot.val()
+                existeContatos: !!querySnapShot.val(),
+                loading: false
             })
         })
 
@@ -98,6 +101,7 @@ class Crise extends Component {
 
                     </TouchableOpacity>
                 </View>
+                {this.state.loading && <Loading />}
             </ImageBackground>
         )
     }

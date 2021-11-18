@@ -9,6 +9,7 @@ import iconePessoa from '../../../assets/icone-pessoa.png'
 import styles from './styles'
 
 import FocusAwareStatusBar from '../../components/FocusAwareStatusBar'
+import Loading from '../../components/Loading'
 
 class Perfil extends Component {
 
@@ -17,7 +18,8 @@ class Perfil extends Component {
         dataDeNascimento: '',
         peso: '',
         altura: '',
-        idade: 0
+        idade: 0,
+        loading: true
     }
 
     constructor(props) {
@@ -34,7 +36,8 @@ class Perfil extends Component {
                     altura: user.altura ? user.altura : '',
                     peso: user.peso ? user.peso : '',
                     dataDeNascimento: user.dataDeNascimento ? DateUtils.MillisecToFormatedDate(user.dataDeNascimento) : '',
-                    idade: DateUtils.old(user.dataDeNascimento)
+                    idade: DateUtils.old(user.dataDeNascimento),
+                    loading: false
                 })
             }
         });
@@ -76,6 +79,7 @@ class Perfil extends Component {
                         {`${this.state.altura}\nM`}
                     </Text>
                 </View>
+                {this.state.loading && <Loading />}
             </ImageBackground>
         )
     }

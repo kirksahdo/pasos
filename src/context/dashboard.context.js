@@ -30,7 +30,7 @@ export const ProcessDashboardContextProvider = ({children}) => {
                     if(item.toJSON().tipo =='Questionario' && item.toJSON().concluiu){
                         setConcluiuQuestionario(true)
                     }
-                    if(item.toJSON.tipo=="Desafio" && item.toJSON().concluiu){
+                    if(item.toJSON().tipo=="Desafio" && item.toJSON().concluiu){
                         setConcluiuDesafio(true)
                     }
                 })

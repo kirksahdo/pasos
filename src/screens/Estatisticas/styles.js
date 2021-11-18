@@ -45,6 +45,21 @@ const styles = StyleSheet.create({
         color: '#000',
         fontSize: 35,
         textTransform: 'uppercase'
+    },
+    header: {
+        width: 291,
+        flexDirection: 'row',
+        marginBottom: 10
+    },
+    arrowLeft: {
+        width: '50%',
+        alignItems: 'flex-start',
+
+    },
+    arrowRight: {
+        width: '50%',
+        alignItems: 'flex-end',
+
     }
 });
 

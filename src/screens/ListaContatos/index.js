@@ -3,6 +3,7 @@ import { View, Text, ImageBackground, Image, FlatList, TouchableOpacity, Linking
 import background from '../../../assets/black-background.png';
 import styles from "./style";
 import Firebase from "../../config/firebase.config";
+import Loading from "../../components/Loading";
 
 import iconeContato from './../../../assets/icone-contato-pessoa.png'
 import iconeAdd from './../../../assets/icone-add-branco.png'
@@ -13,7 +14,8 @@ class ListaContatos extends Component {
 
     state = {
         contatos: [],
-        uid: Firebase.auth().currentUser.uid
+        uid: Firebase.auth().currentUser.uid,
+        loading: true
     }
 
     constructor(props) {
@@ -30,7 +32,8 @@ class ListaContatos extends Component {
             var contatosArray = []
             querySnapShot.forEach(item => {contatosArray.push(item.val())})
             this.setState({
-                contatos: [...contatosArray]
+                contatos: [...contatosArray],
+                loading: false
             })
         });
     }
@@ -75,6 +78,7 @@ class ListaContatos extends Component {
                 <TouchableOpacity style={styles.addBranco} onPress={() => this.props.navigation.navigate('AddContato')}>
                     <Image source={iconeAdd} />
                 </TouchableOpacity>
+                {this.state.loading && <Loading />}
             </ImageBackground>
         )
     }

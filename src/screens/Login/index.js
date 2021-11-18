@@ -9,20 +9,23 @@ import Firebase from '../../config/firebase.config';
 
 import styles from './styles';
 import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
-
+import Loading from '../../components/Loading';
 
 const Login = ({ navigation, login }) => {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [loading, setLoading] = useState(false);
     const authentication = Firebase.auth()
 
     const emailRef = useRef();
     const senhaRef = useRef();
 
     async function setAuth() {
+        setLoading(true);
         authentication.signInWithEmailAndPassword(email, senha).catch((error) => {
             Alert.alert('Erro', error.toString());
+            setLoading(false);
         })
     }
 
@@ -79,6 +82,7 @@ const Login = ({ navigation, login }) => {
             <TouchableOpacity style={styles.crise}>
                 <Image source={crise} />
             </TouchableOpacity>
+            {loading && <Loading />}
         </ImageBackground>
 
     );

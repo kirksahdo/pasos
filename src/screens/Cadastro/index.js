@@ -12,6 +12,7 @@ import UserModel from '../../models/user.model'
 import Firebase from '../../config/firebase.config';
 import { DateUtils } from '../../common/date.utils';
 import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
+import Loading from '../../components/Loading';
 
 const Cadastro = ({ navigation }) => {
 
@@ -24,6 +25,7 @@ const Cadastro = ({ navigation }) => {
     const [showDate, setShowDate] = useState(false);
     const [dataDeNascimento, setDataDeNascimento] = useState('');
     const [dataDeNascimentoEditado, setDataDeNascimentoEditado] = useState('');
+    const [loading, setLoading] = useState(false);
     const database = Firebase.database()
     const authentication = Firebase.auth()
 
@@ -41,6 +43,7 @@ const Cadastro = ({ navigation }) => {
             Alert.alert('Erro', err);
             return;
         }
+        setLoading(true);
         try {
             await authentication.createUserWithEmailAndPassword(email, senha).then(async (userCredentials) => {
                 const user = new UserModel(userCredentials.user.uid, nome, email, altura, dataDeNascimento, peso)
@@ -57,6 +60,7 @@ const Cadastro = ({ navigation }) => {
 
         } catch (error) {
             Alert.alert('Erro', error.toString())
+            setLoading(false);
         }
     }
 
@@ -192,7 +196,7 @@ const Cadastro = ({ navigation }) => {
                             blurOnSubmit={false} />
                     </View>
                     <View style={styles.buttons}>
-                        <TouchableWithoutFeedback >
+                        <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                             <Text style={styles.txtExtras}>Já é cadastrado?</Text>
                         </TouchableWithoutFeedback>
                         <TouchableOpacity style={styles.btnCadastrar} onPress={register}>
@@ -204,6 +208,7 @@ const Cadastro = ({ navigation }) => {
                 <Image source={crise} />
             </TouchableOpacity>
             </ScrollView> 
+            {loading && <Loading />}
         </ImageBackground>
 
     );

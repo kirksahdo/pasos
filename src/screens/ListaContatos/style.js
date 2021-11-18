@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     }, 
     list: {
         flex: 1,
+        marginBottom: 60
     },
     contato: {
         width: Dimensions.get('window').width * 0.8,

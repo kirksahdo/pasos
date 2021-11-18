@@ -4,6 +4,7 @@ import { ImageBackground, Text, View, TextInput, ScrollView, TouchableOpacity, I
 import style from './style.js'
 import Firebase from '../../config/firebase.config';
 import ContatoModel from "../../models/contato.model";
+import Loading from "../../components/Loading";
 
 import setaesquerda from '../../../assets/seta-esquerda-branca.png';
 import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
@@ -12,7 +13,8 @@ class NovoContato extends Component {
     state = {
         nome: '',
         contato: '',
-        observacao: ''
+        observacao: '',
+        loading: false
     }
     constructor(props) {
         super(props)
@@ -25,12 +27,15 @@ class NovoContato extends Component {
             Alert.alert('Erro', err);
             return;
         }
-        const id = Date.now().toString()
-        const contato = new ContatoModel(id, this.uid, this.state.nome, this.state.contato, this.state.observacao)
-        this.database.child(contato.uid).child(id).set(contato).then((_) => {
-            alert('Contato salvo com sucesso ...')
-            this.props.navigation.goBack();
-        })
+        this.setState({loading: true}, () => {
+            const id = Date.now().toString()
+            const contato = new ContatoModel(id, this.uid, this.state.nome, this.state.contato, this.state.observacao)
+            this.database.child(contato.uid).child(id).set(contato).then((_) => {
+                alert('Contato salvo com sucesso ...')
+                this.props.navigation.goBack();
+            })
+        });
+        
     }
 
     validateFields = () => {
@@ -82,6 +87,7 @@ class NovoContato extends Component {
                 <TouchableOpacity style={style.setaEsquerda} onPress={() => this.props.navigation.goBack()}>
                     <Image source={setaesquerda} />
                 </TouchableOpacity>
+                {this.state.loading && <Loading />}
             </ImageBackground>
         )
     }

@@ -58,7 +58,6 @@ class Inicio extends Component {
                         return 0;
                     })
                     this.setState({events: data})
-                    console.log(data)
                 }
                 this.setState({loading: false})
             });

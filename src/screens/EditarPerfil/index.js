@@ -8,6 +8,7 @@ import background from '../../../assets/background.png';
 import setaesquerda from '../../../assets/seta-esquerda-preta.png';
 
 import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
+import Loading from './../../components/Loading';
 
 import styles from './styles';
 import { DateUtils } from '../../common/date.utils';
@@ -24,7 +25,8 @@ class EditarPerfil extends Component {
         dataDeNascimentoEditado: '00/00/0000',
         peso: '',
         altura: '',
-        showDate: false
+        showDate: false,
+        loading: true
     };
 
     getUserData = () => {
@@ -41,7 +43,7 @@ class EditarPerfil extends Component {
                     peso: userData.peso ? Number(userData.peso).toString() + ' kg' : '',
                     altura: userData.altura ? Number(userData.altura).toString() + ' m' : '',
                 };
-                this.setState({ ...load });
+                this.setState({ ...load, loading: false });
             }
         })
     }
@@ -49,7 +51,6 @@ class EditarPerfil extends Component {
     saveUserData = () => {
         const peso = Number.parseFloat((this.state.peso).split(' ')[0])
         const altura = Number.parseInt((this.state.altura).split(' ')[0])
-        console.log(peso)
         const uid = Firebase.auth().currentUser.uid;
         const database = Firebase.database().ref('Users');
         database.child(uid).update(
@@ -82,8 +83,7 @@ class EditarPerfil extends Component {
 
     };
 
-    constructor(props) {
-        super(props);
+    componentDidMount(){
         this.getUserData();
     }
 
@@ -135,6 +135,7 @@ class EditarPerfil extends Component {
                 <TouchableOpacity style={styles.setaEsquerda} onPress={() => this.props.navigation.goBack()}>
                     <Image source={setaesquerda} />
                 </TouchableOpacity>
+                {this.state.loading && <Loading />}
             </ImageBackground>
         );
     };
