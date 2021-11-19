@@ -63,7 +63,7 @@ class DiaEspecifico extends Component {
                 if(snapshot.exists()){
                     let data = [];
                     snapshot.forEach((child) => {
-                        data.push( child.val() )
+                        data.push( {...child.val(), id:child.key} )
                     });
                     data.sort((a,b) => {
                         if(a.concluido && !b.concluido) return 1;

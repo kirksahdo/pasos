@@ -6,6 +6,7 @@ import background from '../../../assets/background.png'
 import setaVoltar from '../../../assets/seta-esquerda-preta.png'
 import pensonagemInicioExercicio from '../../../assets/p-exercitando0.png'
 import { ProcessDashboardContext } from '../../context/dashboard.context'
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar'
 
 class Exercicios extends Component {
 
@@ -36,7 +37,7 @@ class Exercicios extends Component {
 
     completExer(){
         this.context.concluirExercicio()
-        alert('Você concluir seus exercícios diários !!')
+        alert('Você concluiu seus exercícios diários !!')
         this.props.navigation.goBack(null)
     }
     
@@ -128,7 +129,8 @@ class Exercicios extends Component {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.alignItemCenter}>
+
+                <View style={[styles.alignItemCenter, {marginBottom: 150}]}>
                     <TouchableOpacity style={[styles.areaAction,styles.areaSelect]} onPress={()=> this.setState({e5:!this.state.e5})}>
                         <View style={styles.l_area}>
                             <Text style={styles.descriptionExer}>{this.e5v +"S DE PRANCHA"}</Text>
@@ -185,6 +187,7 @@ class Exercicios extends Component {
     render(){
         return(
             <ImageBackground style={styles.background} source={background}>
+                <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
                 <View style={styles.goBackArea} onTouchStart={()=> this.cancelAction()}>
                     <Image source={setaVoltar} style={styles.imgGoBackArea}/>
                 </View>

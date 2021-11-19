@@ -42,7 +42,7 @@ class Estatisticas extends Component{
                     day = '0' + i;
                 }
                 let date = dateFormat + day;
-                if(moment(date, 'YYYY-MM-DD').isBefore(this.state.createdDate)){
+                if(moment(date, 'YYYY-MM-DD').isBefore(this.state.createdDate) && date != this.state.createdDate.format('YYYY-MM-DD')){
                     continue;
                 }
                 if(moment(date, 'YYYY-MM-DD').isAfter(moment())){
@@ -175,7 +175,7 @@ class Estatisticas extends Component{
                     </View>
                     <View style={styles.texts}>
                         <Text style={styles.primaryText}> você já deu </Text> 
-                        <Text style={styles.secondaryText}> {`${this.state.conclusedChallenges} passos`}</Text> 
+                        <Text style={styles.secondaryText}> {`${this.state.conclusedChallenges}  passos`}</Text> 
                         <Text style={styles.primaryText}> (desafios concluídos) </Text> 
                     </View>
                     <View style={styles.texts}>

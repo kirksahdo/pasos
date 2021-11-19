@@ -7,6 +7,7 @@ import pensonagem from '../../../assets/personagens-pensando.png'
 
 
 import styles from './styles'
+import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
 
 class PreQuestionario extends Component{
 
@@ -21,6 +22,7 @@ class PreQuestionario extends Component{
     render(){
         return (
             <ImageBackground style={styles.background} source={background}>
+                <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
                 <View style={styles.goBackArea} onTouchStart={()=> this.cancelAction()}>
                     <Image source={setaVoltar} style={styles.imgGoBackArea}/>
                 </View>

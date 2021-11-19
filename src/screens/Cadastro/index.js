@@ -48,13 +48,6 @@ const Cadastro = ({ navigation }) => {
             await authentication.createUserWithEmailAndPassword(email, senha).then(async (userCredentials) => {
                 const user = new UserModel(userCredentials.user.uid, nome, email, altura, dataDeNascimento, peso)
                 await database.ref(`Users`).child(user.uid).set(user);
-                const key = database.ref('Atividades').child(user.uid).child(moment().format('YYYY-MM-DD')).push().key;
-                await database.ref('Atividades').child(user.uid).child(moment().format('YYYY-MM-DD')).child(key).set({
-                    id: key,
-                    tipo: 'Desafio',
-                    nome: 'Desafio 1',
-                    concluido: false,
-                });
                 navigation.navigate('Login');
             })
 

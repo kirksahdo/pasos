@@ -23,6 +23,7 @@ class Routes extends Component {
                 database.ref('Users').child(user.uid).get().then((snapshot) => {
                     if (snapshot.exists()) {
                         let user = snapshot.val();
+                        console.log(user);
                         if (user.seenTutorial) {
                             this.setState({ seenTutorial: true, signed: true, loading: false })
                         }

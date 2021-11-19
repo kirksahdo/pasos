@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground, Text, TouchableOpacity, View, Linking, Alert } from "react-native";
 import background from '../../../assets/black-background.png';
 import iLigar from '../../../assets/icone-notificacoes.png';
 import iLocal from '../../../assets/icone-inicio-ativo.png'
@@ -88,7 +88,7 @@ class Crise extends Component {
 
                     {this.state.existeContatos ? <Contantos /> : <ErroContatos />}
 
-                    <TouchableOpacity style={styles.buttonLarge} >
+                    <TouchableOpacity style={styles.buttonLarge} onPress={() => Linking.openURL('https://www.google.com.br/maps/search/CAPS/').catch(err => Alert.alert('Erro!', err.toString()))} >
                         <View style={styles.icone} >
                             <Image source={iLocal} />
                         </View>

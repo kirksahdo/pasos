@@ -96,6 +96,7 @@ class Questionario extends Component{
         return (
             
             <ImageBackground style={styles.background} source={background}>
+                <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
                 <ScrollView style={styles.scroll}>
                     <View style={styles.goBackArea} onTouchStart={()=> this.cancelAction()}>
                         <Image source={setaVoltar} style={styles.imgGoBackArea}/>

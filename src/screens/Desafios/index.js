@@ -9,6 +9,7 @@ import player_happy from '../../../assets/personagem-comememorando.png'
 import player_init from '../../../assets/pensagem-olhando.png'
 
 import styles from './styles'
+import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
 
 class Desafios extends Component{
 
@@ -63,6 +64,7 @@ class Desafios extends Component{
     render(){
         return (
             <ImageBackground style={styles.background} source={background}>
+                <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
                 <ScrollView style={styles.scroll}>
                     <View style={styles.goBackArea} onTouchStart={()=> this.cancelAction()}>
                         <Image source={setaVoltar} style={styles.imgGoBackArea}/>

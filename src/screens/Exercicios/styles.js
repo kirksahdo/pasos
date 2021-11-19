@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         paddingTop: StatusBar.currentHeight + 20
     },
     goBackArea:{
-        padding:20
+        padding: 20
     },
     imgGoBackArea:{
         width:20,
