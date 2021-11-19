@@ -48,7 +48,7 @@ const EventButton = ({onPress = () => '', tipo, nome = 'Evento', concluido = fal
     }
 
     return(
-        <TouchableOpacity style={!concluido ? styles.buttonY : styles.buttonB} onPress={onPress}  >
+        <TouchableOpacity style={!concluido ? styles.buttonY : styles.buttonB} onPress={!concluido?onPress:()=>null}  >
             <View style={styles.icone} >
                 <Image source={icone} />
             </View>

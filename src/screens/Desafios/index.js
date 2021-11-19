@@ -22,7 +22,7 @@ class Desafios extends Component{
     }
 
     completTask(){
-        //this.setState({complet:true});
+        this.setState({complet:true});
         this.context.concluirDesafio()
     }
 

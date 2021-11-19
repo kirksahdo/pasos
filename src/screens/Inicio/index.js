@@ -79,6 +79,8 @@ class Inicio extends Component {
                 return () => this.props.navigation.navigate('PreQuestionario')
             case 'desafio':
                 return () => this.props.navigation.navigate('Desafio')
+            case 'exercicio':
+                return ()=> this.props.navigation.navigate('Exercicios')
             default:
                 return null
         }
