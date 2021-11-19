@@ -8,6 +8,8 @@ import setaInferiorVoltar from '../../../assets/seta-volta-preta.png'
 import setaInferiorIda from '../../../assets/seta-ida-preta.png'
 
 
+import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
+
 import styles from './styles'
 import { DateSelectQuestion, SelectInputQuestion, TextInputQuestion } from "../../components/Inputs/Inputs";
 import { DotProgressIndicator } from "../../components/DotProgressIndicator";

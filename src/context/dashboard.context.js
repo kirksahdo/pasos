@@ -23,39 +23,74 @@ export const ProcessDashboardContextProvider = ({children}) => {
     const user = Firebase.auth().currentUser;
     const currentDate = moment().format('YYYY-MM-DD')
 
+    function generateEventsDefault(Quest=true,Chall=true,Exerc=true,RotAli=true){
+
+        const ref =database.ref('Atividades').child(user.uid).child(currentDate)
+
+        if(Quest){
+            const kQuest = ref.push().key
+            ref.child(kQuest).set({
+                tipo:'questionario',
+                nome:'Questionário',
+                concluido:false
+            })
+        }
+        if(Chall){
+            const kChall = ref.push().key
+            ref.child(kChall).set({
+                tipo:'desafio',
+                nome:'Desafio',
+                concluido:false
+            })
+        }
+        if(Exerc){
+            const kExerc = ref.push().key
+            ref.child(kExerc).set({
+                tipo:'exercicio',
+                nome:'Exercício',
+                concluido:false
+            })
+        }
+        if(RotAli){
+            const kRotAli = ref.push().key
+            ref.child(kRotAli).set({
+                tipo:'rotina-alimentar',
+                nome:"Rotina Alimentar",
+                concluido:false
+            })
+        }
+    }
     async function loadTasks(){
+        var hasQ=false,hasCh=false,hasEx = false,hasRotAli=false
         database.ref('Atividades').child(user.uid).child(currentDate).get().then(async(items)=>{
             if(items.hasChildren()){
                 items.forEach((item)=>{
-                    if(item.toJSON().tipo =='Questionario' && item.toJSON().concluiu){
-                        setConcluiuQuestionario(true)
-                    }
-                    if(item.toJSON().tipo=="Desafio" && item.toJSON().concluiu){
-                        setConcluiuDesafio(true)
+                    switch(item.toJSON().tipo){
+                        case 'questionario':
+                            hasQ = true
+                            if(item.toJSON().concluiu){
+                                setConcluiuQuestionario(true)
+                            }
+                            break;
+                        case 'desafio':
+                            hasCh = true
+                            if(item.toJSON().concluiu){
+                                setConcluiuDesafio(true)
+                            }
+                            break;
+                        case "exercicio":
+                            hasEx= true
+                            break;
+                        case 'rotina-alimentar':
+                            hasRotAli = true;
+                            break;
+                        
                     }
                 })
-            }else{
-                const ref =database.ref('Atividades').child(user.uid).child(currentDate)
-                const kQuest = ref.push().key
-                const kChall = ref.push().key
-                const kExerc = ref.push().key
-                //const kRotAli = ref.push().key
+                generateEventsDefault(!hasQ,!hasCh,!hasEx,!hasRotAli)
 
-                await ref.child(kQuest).set({
-                    tipo:'questionario',
-                    nome:'Questionario',
-                    concluido:false
-                })
-                await ref.child(kChall).set({
-                    tipo:'desafio',
-                    nome:'Desafio',
-                    concluido:false
-                })
-                await ref.child(kExerc).set({
-                    tipo:'exercicio',
-                    nome:'Exercicio',
-                    concluido:false
-                })
+            }else{
+                generateEventsDefault()
             }
         })
         let currentQuestionarySet = 0
@@ -107,7 +142,7 @@ export const ProcessDashboardContextProvider = ({children}) => {
     }
     useEffect(()=>{
         loadTasks().then(()=>{
-            console.log('Loaded data ...')
+            console.info('Loaded data ...')
         })
     },[])
 
@@ -157,7 +192,6 @@ export const ProcessDashboardContextProvider = ({children}) => {
             .on('value', snapshot => {
             if(snapshot.exists()){
                 snapshot.forEach((child) => {
-                    console.log(child.ref)
                     if(child.val().tipo =="desafio"){
                         child.ref.update({
                             concluido:true
@@ -180,8 +214,23 @@ export const ProcessDashboardContextProvider = ({children}) => {
             .on('value', snapshot => {
             if(snapshot.exists()){
                 snapshot.forEach((child) => {
-                    console.log(child.ref)
                     if(child.val().tipo =="exercicio"){
+                        child.ref.update({
+                            concluido:true
+                        })
+                    }
+                });
+            }
+        });
+    }
+    function concluirRotinaAlimentar(){
+        database.ref('Atividades')
+            .child(user.uid)
+            .child(moment().format('YYYY-MM-DD'))
+            .on('value', snapshot => {
+            if(snapshot.exists()){
+                snapshot.forEach((child) => {
+                    if(child.val().tipo =="rotina-alimentar"){
                         child.ref.update({
                             concluido:true
                         })
@@ -204,7 +253,8 @@ export const ProcessDashboardContextProvider = ({children}) => {
                 concluiuDesafio,
                 currentChallenge,
                 concluirDesafio,
-                concluirExercicio
+                concluirExercicio,
+                concluirRotinaAlimentar
             }
             } >
             {children}

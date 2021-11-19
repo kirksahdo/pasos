@@ -19,138 +19,78 @@ class Exercicios extends Component {
     getRandomValue(min=1, max=6) {
         return Number.parseInt(Math.random() * (max - min) + min)*5;
     }
-    
-    e1v= this.getRandomValue()
-    e2v= this.getRandomValue()
-    e3v= this.getRandomValue()
-    e4v= this.getRandomValue()
-    e5v= this.getRandomValue()
 
+    componentDidMount(){
+        this.setState({
+            checks:[
+                false,
+                false,
+                false,
+                false,
+                false
+            ]
+        })
+        this.values =[
+            {
+                description: this.getRandomValue()+" POLICHINELOS"
+            },
+            {
+                description: this.getRandomValue()+" AGACHAMENTOS"
+            },
+            {
+                description: this.getRandomValue()+" FLEXÕES"
+            },
+            {
+                description: this.getRandomValue()+"S DE CORRIDA ESTACIONADA"
+            },
+            {
+                description: this.getRandomValue()+"S DE PRANCHA"
+            }
+
+        ]
+    }
     state ={
-        isPrepared:true,
-        e1:false,
-        e2:false,
-        e3:false,
-        e4:false,
-        e5:false
+        isPrepared:false
     }
 
-    completExer(){
+    CheckcompletExer(){
         this.context.concluirExercicio()
         alert('Você concluiu seus exercícios diários !!')
-        this.props.navigation.goBack(null)
+        this.props.navigation.navigate('Dashboard')
+    }
+    checkI(index){
+        var nCheck = this.state.checks
+        nCheck[index] = !nCheck[index]
+
+        var vYu = nCheck.filter((x)=> !x)
+        if(!vYu.length){
+            this.CheckcompletExer()
+        }else{
+            this.setState({checks: nCheck})
+        }
+        
     }
     
-
-    renderExerc(){
-        if(this.state.e1 && this.state.e2 && this.state.e3 && this.state.e4 && this.state.e5){
-            this.completExer()
-        }
-        return(
-            <View>
-                <View>
-                    <Text style={styles.title}>TREINO FÍSICO</Text>
-                </View>
-                
-                <View style={styles.alignItemCenter}>
-                    <TouchableOpacity style={[styles.areaAction,styles.areaSelect]} onPress={
-                        ()=> {
-                            this.setState({e1:!this.state.e1})
-                        }
-                    }>
+    renderExercF(){
+        return this.values.map((item,index) => (
+            <View style={styles.alignItemCenter} key={index}>
+                    <TouchableOpacity style={[styles.areaAction,styles.areaSelect]} onPress={()=>this.checkI(index)}>
                         <View style={styles.l_area}>
-                            <Text style={styles.descriptionExer}>{this.e1v +" POLICHINELOS"}</Text>
+                            <Text style={styles.descriptionExer}>{item.description}</Text>
                         </View>
                         <View style={styles.r_area}>
                             <View style={[
                                 styles.checkbox_area,
-                                this.state.e1?styles.checked:null
+                                this.state.checks[index]?styles.checked:null
                                 ]}>
-                                
-
                             </View>
-                         
                         </View>
                     </TouchableOpacity>
                     
                 </View>
-                
-                <View style={styles.alignItemCenter}>
-                    <TouchableOpacity style={[styles.areaAction,styles.areaSelect]} onPress={()=> this.setState({e2:!this.state.e2})}>
-                        <View style={styles.l_area}>
-                            <Text style={styles.descriptionExer}>{this.e2v +" AGACHAMENTOS"}</Text>
-                        </View>
-                        <View style={styles.r_area}>
-                            <View style={[
-                                styles.checkbox_area,
-                                this.state.e2?styles.checked:null
-                                ]}>
-                                
+        ))
 
-                            </View>
-                         
-                        </View>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={styles.alignItemCenter}>
-                    <TouchableOpacity style={[styles.areaAction,styles.areaSelect]} onPress={()=> this.setState({e3:!this.state.e3})}>
-                        <View style={styles.l_area}>
-                            <Text style={styles.descriptionExer}>{this.e3v +" FLEXÕES"}</Text>
-                        </View>
-                        <View style={styles.r_area}>
-                            <View style={[
-                                styles.checkbox_area,
-                                this.state.e3?styles.checked:null
-                                ]}>
-                                
-
-                            </View>
-                         
-                        </View>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={styles.alignItemCenter}>
-                    <TouchableOpacity style={[styles.areaAction,styles.areaSelect]} onPress={()=> this.setState({e4:!this.state.e4})}>
-                        <View style={styles.l_area}>
-                            <Text style={styles.descriptionExer}>{this.e4v +"S DE CORRIDA ESTACIONADA"}</Text>
-                        </View>
-                        <View style={styles.r_area}>
-                            <View style={[
-                                styles.checkbox_area,
-                                this.state.e4?styles.checked:null
-                                ]}>
-                                
-
-                            </View>
-                         
-                        </View>
-                    </TouchableOpacity>
-                </View>
-
-
-                <View style={[styles.alignItemCenter, {marginBottom: 150}]}>
-                    <TouchableOpacity style={[styles.areaAction,styles.areaSelect]} onPress={()=> this.setState({e5:!this.state.e5})}>
-                        <View style={styles.l_area}>
-                            <Text style={styles.descriptionExer}>{this.e5v +"S DE PRANCHA"}</Text>
-                        </View>
-                        <View style={styles.r_area}>
-                            <View style={[
-                                styles.checkbox_area,
-                                this.state.e5?styles.checked:null
-                                ]}>
-                                
-
-                            </View>
-                         
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        )
     }
-
     cancelAction(){
         this.props.navigation.goBack(null)
     }
@@ -193,7 +133,7 @@ class Exercicios extends Component {
                 </View>
                 <ScrollView>
                     {
-                        this.state.isPrepared? this.renderExerc():this.renderPreExerc()
+                        this.state.isPrepared? this.renderExercF():this.renderPreExerc()
                     }
                 </ScrollView>
                 

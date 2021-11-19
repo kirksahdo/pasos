@@ -92,7 +92,7 @@ class Estatisticas extends Component{
                 this.setState({daysInApp: days+1, createdDate})
             }
         }).catch(err => {
-            console.log(err);
+            console.error(err)
         });
     }
 

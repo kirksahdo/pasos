@@ -9,6 +9,7 @@ import Questionario from '../screens/Questionario';
 import AdicionarEvento from '../screens/AdicionarEvento';
 import Desafios from '../screens/Desafios';
 import Exercicios from '../screens/Exercicios';
+import RotinaAlimentar from '../screens/RotinaAlimentar';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ const InicioRoutes = () => (
         <Stack.Screen name="AdicionarEvento" component={AdicionarEvento} />
         <Stack.Screen name="Desafio" component={Desafios} />
         <Stack.Screen name="Exercicios" component ={Exercicios} />
+        <Stack.Screen name="RotinaAlimentar" component = {RotinaAlimentar} />
     </Stack.Navigator>
     </ProcessDashboardContextProvider>
 );
