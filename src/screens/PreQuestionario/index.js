@@ -41,7 +41,7 @@ class PreQuestionario extends Component{
                 </View>
                 <View style={styles.alignItemCenter}>
                     <TouchableOpacity style={styles.buttomAction} onPress={()=>this.nextAction()}>
-                        <Text>COMEÇAR</Text>
+                        <Text style={{color:'#fff'}}>COMEÇAR</Text>
                     </TouchableOpacity>
                 </View>
                 

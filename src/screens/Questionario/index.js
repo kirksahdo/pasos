@@ -75,7 +75,7 @@ class Questionario extends Component{
                     <Image source={pensonagem} style={styles.imgPersonagem} />
 
                     <View>
-                        <View style={styles.alignFlex}>
+                        <View style={[styles.alignFlex, {paddingBottom: 30}]}>
                             <Image source={setaInferiorVoltar} onTouchStart={()=>this.context.anteriorQuestao()}/>
                             <DotProgressIndicator 
                                 numDots={this.context.questionary.length} 

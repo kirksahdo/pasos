@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
     scroll:{
         height: '100%',
-        marginBottom:80
+        marginBottom:60
     },
     viewMain:{
         width:'100%',

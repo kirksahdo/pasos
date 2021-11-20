@@ -167,7 +167,7 @@ export const ProcessDashboardContextProvider = ({children}) => {
                             child.ref.update({
                                 concluido:true
                             })
-                            alert('Você concluir seu questionário diário !!')
+                            alert('Você concluiu seu questionário diário !!')
                         }
                     });
                 }

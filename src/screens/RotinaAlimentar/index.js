@@ -85,7 +85,7 @@ class RotinaAlimentar extends Component{
 
                 <View style={styles.alignItemCenter}>
                     <TouchableOpacity style={[styles.areaAction,styles.buttomArea,styles.primary_background]} onPress={()=>this.nextAction()}>
-                        <Text>SIM</Text>
+                        <Text style={{color: '#fff'}}>SIM</Text>
                     </TouchableOpacity>
                 </View>
 

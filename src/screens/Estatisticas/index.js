@@ -142,7 +142,7 @@ class Estatisticas extends Component{
                     }>
                     <View style={styles.texts}>
                         <Text style={styles.primaryText}> você está a </Text> 
-                        <Text style={styles.secondaryText}> xx dias</Text> 
+                        <Text style={styles.secondaryText}> {this.state.daysInApp == 1 ? this.state.daysInApp + '  dia': this.state.daysInApp + '  dias'} </Text> 
                         <Text style={styles.primaryText}> sem consumir drogas </Text> 
                     </View>
                     <View style={styles.calendario} >
@@ -175,7 +175,7 @@ class Estatisticas extends Component{
                     </View>
                     <View style={styles.texts}>
                         <Text style={styles.primaryText}> você já deu </Text> 
-                        <Text style={styles.secondaryText}> {`${this.state.conclusedChallenges}  passos`}</Text> 
+                        <Text style={styles.secondaryText}> {this.state.conclusedChallenges == 1 ? this.state.conclusedChallenges + '  passo': this.state.conclusedChallenges + '  passos'}</Text> 
                         <Text style={styles.primaryText}> (desafios concluídos) </Text> 
                     </View>
                     <View style={styles.texts}>

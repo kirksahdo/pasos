@@ -27,10 +27,10 @@ const EventButton = ({onPress = () => '', tipo, nome = 'Evento', concluido = fal
         if(iconName == 'questionario'){
             return concluido ? questionarioIcoBranco : questionarioIcoPreto;
         }
-        if(iconName == 'treino'){
+        if(iconName == 'exercicio'){
             return concluido ? pesoTreinoIcoBranco : pesoIcoPreto;
         }
-        if(iconName == 'rotinaAlimentar'){
+        if(iconName == 'rotina-alimentar'){
             return concluido ? macaIcoBranco : macaIcoPreto;
         }
         return concluido ? calendarIcoBranco : calendarIcoPreto;

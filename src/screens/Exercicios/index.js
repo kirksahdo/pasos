@@ -117,7 +117,7 @@ class Exercicios extends Component {
                 </View>
                 <View style={styles.alignItemCenter}>
                     <TouchableOpacity style={[styles.areaAction,styles.buttomArea]} onPress={()=>this.nextAction()}>
-                        <Text>COMEÇAR</Text>
+                        <Text style={{color: '#fff'}}>COMEÇAR</Text>
                     </TouchableOpacity>
                 </View>
             </View>
