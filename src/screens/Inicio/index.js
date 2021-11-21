@@ -66,6 +66,7 @@ class Inicio extends Component {
         }
     }
 
+
     componentDidMount(){
         this.getEvents();
     }
@@ -73,7 +74,7 @@ class Inicio extends Component {
     componentWillUnmount(){
         this.databaseRef.off('value', this.listener);
     }
-    getNavigateEvent(tipo){
+    getNavigateEvent(tipo, concluido, id, data){
         switch(tipo){
             case 'questionario':
                 return () => this.props.navigation.navigate('PreQuestionario')
@@ -83,6 +84,8 @@ class Inicio extends Component {
                 return ()=> this.props.navigation.navigate('Exercicios')
             case 'rotina-alimentar':
                 return ()=> this.props.navigation.navigate('RotinaAlimentar')
+            case 'Evento Personalizado':
+                return () => !concluido && this.props.navigation.navigate('EditarEvento', {id, data});
             default:
                 return null
         }
@@ -143,7 +146,7 @@ class Inicio extends Component {
                             <EventButton 
                                 key={item.id}
                                 tipo={item.tipo}
-                                onPress={this.getNavigateEvent(item.tipo)}
+                                onPress={this.getNavigateEvent(item.tipo, item.concluido, item.id, item.data?item.data:{})}
                                 nome={item.horario ? item.nome + ' - ' + item.horario : item.nome}
                                 concluido={item.concluido}/>
                                 

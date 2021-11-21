@@ -49,8 +49,8 @@ class EditarPerfil extends Component {
     }
 
     saveUserData = () => {
-        const peso = Number.parseFloat((this.state.peso).split(' ')[0])
-        const altura = Number.parseInt((this.state.altura).split(' ')[0])
+        const peso = Number.parseFloat(this.state.peso.replace(' kg', ''))
+        const altura = Number.parseFloat((this.state.altura).split(' ')[0])
         const uid = Firebase.auth().currentUser.uid;
         const database = Firebase.database().ref('Users');
         database.child(uid).update(
@@ -82,6 +82,14 @@ class EditarPerfil extends Component {
         
 
     };
+
+    onChangePeso = (text) => {
+        return isNaN(text) ? {} : this.setState({peso: text});
+    }
+
+    onChangeAltura = (text) => {
+        return isNaN(text) ? {} : this.setState({altura: text});
+    }
 
     componentDidMount(){
         this.getUserData();
@@ -124,8 +132,14 @@ class EditarPerfil extends Component {
                                     />
                                 )
                             }
-                            <TextInput placeholder='PESO' keyboardType="decimal-pad" style={styles.input} value={this.state.peso} onChangeText={text => this.setState({ peso: text })} />
-                            <TextInput placeholder='ALTURA' keyboardType="decimal-pad" style={styles.input} value={this.state.altura} onChangeText={text => this.setState({ altura: text })} />
+                            <TextInput placeholder='PESO' keyboardType="decimal-pad" style={styles.input} value={this.state.peso} 
+                                onFocus= {() => this.setState({peso: this.state.peso.replace(' kg', '')})}
+                                onBlur={() => this.setState({peso: this.state.peso + ' kg'})}
+                                onChangeText={this.onChangePeso} />
+                            <TextInput placeholder='ALTURA' keyboardType="decimal-pad" style={styles.input} value={this.state.altura} 
+                                onFocus= {() => this.setState({altura: this.state.altura.replace(' m', '')})}
+                                onBlur={() => this.setState({altura: this.state.altura + ' m'})}
+                                onChangeText={this.onChangeAltura}/>
                             <TouchableOpacity style={styles.btnAdicionar} title='Adicionar' onPress={() => this.saveUserData()}>
                                 <Text style={styles.btnText}>Adicionar</Text>
                             </TouchableOpacity>

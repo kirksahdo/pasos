@@ -7,6 +7,7 @@ import {ProcessDashboardContextProvider} from '../context/dashboard.context'
 import PreQuestionario from '../screens/PreQuestionario';
 import Questionario from '../screens/Questionario';
 import AdicionarEvento from '../screens/AdicionarEvento';
+import EditarEvento from '../screens/EditarEvento';
 import Desafios from '../screens/Desafios';
 import Exercicios from '../screens/Exercicios';
 import RotinaAlimentar from '../screens/RotinaAlimentar';
@@ -20,6 +21,7 @@ const InicioRoutes = () => (
         <Stack.Screen name="PreQuestionario" component={PreQuestionario} />
         <Stack.Screen name="Questionario" component={Questionario} />
         <Stack.Screen name="AdicionarEvento" component={AdicionarEvento} />
+        <Stack.Screen name="EditarEvento" component={EditarEvento} />
         <Stack.Screen name="Desafio" component={Desafios} />
         <Stack.Screen name="Exercicios" component ={Exercicios} />
         <Stack.Screen name="RotinaAlimentar" component = {RotinaAlimentar} />

@@ -89,7 +89,7 @@ class Estatisticas extends Component{
                 const user = snapshopt.val();
                 const createdDate = moment(Number.parseInt(user.createdAt))
                 const days = moment().diff(createdDate, 'days');
-                this.setState({daysInApp: days+1, createdDate})
+                this.setState({daysInApp: days+2, createdDate})
             }
         }).catch(err => {
             console.error(err)

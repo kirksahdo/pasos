@@ -50,7 +50,7 @@ class AdicionarEvento extends Component {
 
         const date = moment();
         const selectedDate = moment(this.state.date.getTime());
-        if(selectedDate.isSameOrBefore()){
+        if(selectedDate.isSameOrBefore(date)){
             Alert.alert('Erro', 'A data e o horário do evento precisam ser no futuro!');
             return false;
         }

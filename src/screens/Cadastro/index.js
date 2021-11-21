@@ -46,7 +46,7 @@ const Cadastro = ({ navigation }) => {
         setLoading(true);
         try {
             await authentication.createUserWithEmailAndPassword(email, senha).then(async (userCredentials) => {
-                const user = new UserModel(userCredentials.user.uid, nome, email, altura, dataDeNascimento, peso)
+                const user = new UserModel(userCredentials.user.uid, nome, email, Number.parseFloat(altura.replace(' m', '')), dataDeNascimento, Number.parseFloat(peso.replace(' kg', '')))
                 await database.ref(`Users`).child(user.uid).set(user);
                 navigation.navigate('Login');
             })
@@ -67,6 +67,14 @@ const Cadastro = ({ navigation }) => {
         }
     };
 
+
+    const onChangePeso = (text) => {
+        return isNaN(text) ? {} : setPeso(text);
+    }
+
+    const onChangeAltura = (text) => {
+        return isNaN(text) ? {} : setAltura(text);
+    }
 
     function validateFields(){
         let err = '';
@@ -142,7 +150,9 @@ const Cadastro = ({ navigation }) => {
                         <TextInput placeholder='PESO' keyboardType="decimal-pad" style={styles.txtInput} 
                             value={peso} 
                             placeholderTextColor='#7d7d7d' 
-                            onChangeText={text => setPeso(text)}
+                            onChangeText={onChangePeso}
+                            onFocus= {() => setPeso(peso.replace(' kg', ''))}
+                            onBlur={() => setPeso(peso + ' kg')}
                             ref={pesoRef}
                             returnKeyType="next"
                             onSubmitEditing={() => {
@@ -155,7 +165,9 @@ const Cadastro = ({ navigation }) => {
                             keyboardType="decimal-pad" 
                             style={styles.txtInput} 
                             value={altura} 
-                            onChangeText={text => setAltura(text)}
+                            onChangeText={onChangeAltura}
+                            onFocus= {() => setAltura(altura.replace(' m', ''))}
+                            onBlur={() => setAltura(altura + ' m')}
                             ref={alturaRef}
                             returnKeyType="next"
                             onSubmitEditing={() => {
