@@ -95,8 +95,9 @@ export const ProcessDashboardContextProvider = ({children}) => {
         })
         let currentQuestionarySet = 0
         database.ref('Users').child(user.uid).get().then(userData=>{
-            var lastQuestionary = userData.toJSON().lastQuestionary || null
-            var lastChallenge = userData.toJSON().lastChallenge || null
+            var lastQuestionary = userData.toJSON().lastQuestionary
+            var lastChallenge = userData.toJSON().lastChallenge
+            console.log(lastChallenge)
             if(lastQuestionary==null){
                 lastQuestionary=-1
             }
