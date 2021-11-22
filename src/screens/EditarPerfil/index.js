@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, StatusBar, ImageBackground, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { Text, View, TextInput, Alert, ImageBackground, TouchableOpacity, Image, ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import Firebase from '../../config/firebase.config';
@@ -62,7 +62,7 @@ class EditarPerfil extends Component {
 
             }
         ).then(() => {
-            alert('Dados atualizados ...')
+            Alert.alert('Sucesso!', 'Seus dados foram atualizados com sucesso!');
         }).catch((e) => {
             alert(e)
         })

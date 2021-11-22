@@ -2,7 +2,7 @@ import Firebase from "../../config/firebase.config";
 import { Alert } from "react-native";
 
 const dayIsConclused = async (data, userId) => {
-    let conclused = true;
+    let conclused = false;
     try{
         const result = await Firebase.database()
             .ref('Atividades')
@@ -10,8 +10,8 @@ const dayIsConclused = async (data, userId) => {
             .child(data).get();
         const dados = result.val();
         for(let key in dados){
-            if(!dados[key].concluido){
-                conclused = false;
+            conclused = dados[key].concluido;
+            if(!conclused){
                 break;
             }
         }

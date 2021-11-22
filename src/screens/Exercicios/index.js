@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import {View,Text,ImageBackground, Image, TouchableOpacity, ScrollView} from 'react-native'
+import {View,Text,ImageBackground, Image, TouchableOpacity, ScrollView, Alert} from 'react-native'
 import styles from './styles'
 
 import background from '../../../assets/background.png'
@@ -55,7 +55,7 @@ class Exercicios extends Component {
 
     CheckcompletExer(){
         this.context.concluirExercicio()
-        alert('Você concluiu seus exercícios diários !!')
+        Alert.alert('Parabéns!', 'Você concluiu seus exercícios diários!')
         this.props.navigation.navigate('Dashboard')
     }
     checkI(index){
@@ -131,7 +131,7 @@ class Exercicios extends Component {
                 <View style={styles.goBackArea} onTouchStart={()=> this.cancelAction()}>
                     <Image source={setaVoltar} style={styles.imgGoBackArea}/>
                 </View>
-                <ScrollView>
+                <ScrollView keyboardShouldPersistTaps="always">
                     {
                         this.state.isPrepared? this.renderExercF():this.renderPreExerc()
                     }

@@ -25,8 +25,13 @@ class Crise extends Component {
         this.getContatos()
     }
 
+    componentWillUnmount(){
+        this.ref.off('value', this.listener);
+    }
+
     getContatos() {
-        this.database.child(this.uid).on('value', querySnapShot => {
+        this.ref = this.database.child(this.uid)
+        this.listener = this.ref.on('value', querySnapShot => {
             this.setState({
                 existeContatos: !!querySnapShot.val(),
                 loading: false

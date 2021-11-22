@@ -65,7 +65,7 @@ class Desafios extends Component{
         return (
             <ImageBackground style={styles.background} source={background}>
                 <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
-                <ScrollView style={styles.scroll}>
+                <ScrollView style={styles.scroll} keyboardShouldPersistTaps="always">
                     <View style={styles.goBackArea} onTouchStart={()=> this.cancelAction()}>
                         <Image source={setaVoltar} style={styles.imgGoBackArea}/>
                     </View>

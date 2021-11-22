@@ -147,7 +147,7 @@ const Cadastro = ({ navigation }) => {
                                     />
                                 )
                             }
-                        <TextInput placeholder='PESO' keyboardType="decimal-pad" style={styles.txtInput} 
+                        <TextInput placeholder='PESO (em quilogramas)' keyboardType="decimal-pad" style={styles.txtInput} 
                             value={peso} 
                             placeholderTextColor='#7d7d7d' 
                             onChangeText={onChangePeso}
@@ -160,7 +160,7 @@ const Cadastro = ({ navigation }) => {
                             }}
                             blurOnSubmit={false} />
                         <TextInput 
-                            placeholder='ALTURA' 
+                            placeholder='ALTURA (em metros)' 
                             placeholderTextColor='#7d7d7d' 
                             keyboardType="decimal-pad" 
                             style={styles.txtInput} 

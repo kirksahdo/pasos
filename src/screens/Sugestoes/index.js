@@ -38,7 +38,7 @@ class Sugestoes extends Component {
             <ImageBackground source={background} style={styles.background}>
 
                 <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
-                <ScrollView style={styles.scroll}>
+                <ScrollView keyboardShouldPersistTaps="always" style={styles.scroll}>
                     <View style={styles.form}>
                         <View style={styles.header}>
                             <Text style={styles.headerTitle}>FAZER SUGESTÕES</Text>

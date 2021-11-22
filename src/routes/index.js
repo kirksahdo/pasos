@@ -27,7 +27,7 @@ class Routes extends Component {
                             this.setState({ seenTutorial: true, signed: true, loading: false })
                         }
                         else {
-                            this.setState({ signed: true, loading: false })
+                            this.setState({ signed: true, seenTutorial: false, loading: false })
                         }
                     }
                 })

@@ -31,11 +31,27 @@ class NovoContato extends Component {
             const id = Date.now().toString()
             const contato = new ContatoModel(id, this.uid, this.state.nome, this.state.contato, this.state.observacao)
             this.database.child(contato.uid).child(id).set(contato).then((_) => {
-                alert('Contato salvo com sucesso ...')
+                Alert.alert('Sucesso!', 'O contato foi salvo com êxito!');
                 this.props.navigation.goBack();
             })
         });
         
+    }
+
+    onChangeNumber = (text) => {
+        let r = text.replace(/\D/g, "");
+        r = r.replace(/^0/, "");
+
+        if (r.length > 11) {
+            r = r.replace(/^(\d\d)(\d{5})(\d{4}).*/, "($1) $2-$3");
+        } else if (r.length > 7) {
+            r = r.replace(/^(\d\d)(\d{5})(\d{0,4}).*/, "($1) $2-$3");
+        } else if (r.length > 2) {
+            r = r.replace(/^(\d\d)(\d{0,5})/, "($1) $2");
+        } else if (text.trim() !== "") {
+            r = r.replace(/^(\d*)/, "($1");
+        }
+        this.setState({contato: r});
     }
 
     validateFields = () => {
@@ -68,7 +84,7 @@ class NovoContato extends Component {
                             placeholderTextColor='#fff'
                             keyboardType="phone-pad"
                             value={this.state.contato}
-                            onChangeText={text => this.setState({ contato: text })}
+                            onChangeText={this.onChangeNumber}
                         />
                         <TextInput
                             style={style.input}

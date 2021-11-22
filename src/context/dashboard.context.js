@@ -1,5 +1,6 @@
 
 import React, { createContext, useEffect, useState } from "react";
+import {Alert} from 'react-native';
 
 import moment from "moment";
 import Firebase from "../config/firebase.config";
@@ -97,7 +98,7 @@ export const ProcessDashboardContextProvider = ({children}) => {
         database.ref('Users').child(user.uid).get().then(userData=>{
             var lastQuestionary = userData.toJSON().lastQuestionary
             var lastChallenge = userData.toJSON().lastChallenge
-            console.log(lastChallenge)
+
             if(lastQuestionary==null){
                 lastQuestionary=-1
             }
@@ -145,6 +146,12 @@ export const ProcessDashboardContextProvider = ({children}) => {
         loadTasks().then(()=>{
             console.info('Loaded data ...')
         })
+        const refQuestionary = database
+                    .ref('Questionario')
+        return () => {
+            refQuestionary.off();
+        }
+
     },[])
 
     function proximaQuestao(){
@@ -160,7 +167,8 @@ export const ProcessDashboardContextProvider = ({children}) => {
             database.ref('Atividades')
             .child(user.uid)
             .child(moment().format('YYYY-MM-DD'))
-            .on('value', snapshot => {
+            .get()
+            .then(snapshot => {
                 if(snapshot.exists()){
                     let data = [];
                     snapshot.forEach((child) => {
@@ -168,7 +176,7 @@ export const ProcessDashboardContextProvider = ({children}) => {
                             child.ref.update({
                                 concluido:true
                             })
-                            alert('Você concluiu seu questionário diário !!')
+                            Alert.alert('Parabéns!', 'Você concluiu seu questionário diário!');
                         }
                     });
                 }
@@ -190,14 +198,14 @@ export const ProcessDashboardContextProvider = ({children}) => {
         database.ref('Atividades')
             .child(user.uid)
             .child(moment().format('YYYY-MM-DD'))
-            .on('value', snapshot => {
+            .get().then(snapshot => {
             if(snapshot.exists()){
                 snapshot.forEach((child) => {
                     if(child.val().tipo =="desafio"){
                         child.ref.update({
                             concluido:true
                         })
-                        alert('Você concluir seu desafio diário !!')
+                        Alert.alert('Parabéns!','Você concluiu seu desafio diário!');
                     }
                 });
             }
@@ -212,7 +220,7 @@ export const ProcessDashboardContextProvider = ({children}) => {
         database.ref('Atividades')
             .child(user.uid)
             .child(moment().format('YYYY-MM-DD'))
-            .on('value', snapshot => {
+            .get().then(snapshot => {
             if(snapshot.exists()){
                 snapshot.forEach((child) => {
                     if(child.val().tipo =="exercicio"){
@@ -228,16 +236,17 @@ export const ProcessDashboardContextProvider = ({children}) => {
         database.ref('Atividades')
             .child(user.uid)
             .child(moment().format('YYYY-MM-DD'))
-            .on('value', snapshot => {
-            if(snapshot.exists()){
-                snapshot.forEach((child) => {
-                    if(child.val().tipo =="rotina-alimentar"){
-                        child.ref.update({
-                            concluido:true
-                        })
-                    }
-                });
-            }
+            .get()
+            .then(snapshot => {
+                if(snapshot.exists()){
+                    snapshot.forEach((child) => {
+                        if(child.val().tipo =="rotina-alimentar"){
+                            child.ref.update({
+                                concluido:true
+                            })
+                        }
+                    });
+                }
         });
     }
     return (

@@ -28,7 +28,8 @@ class Perfil extends Component {
     }
 
     componentDidMount(){
-        this.db.child(Firebase.auth().currentUser.uid).on('value', snapshot => {
+        this.reference = this.db.child(Firebase.auth().currentUser.uid)
+        this.listener = this.reference.on('value', snapshot => {
             if (snapshot.exists()) {
                 let user = snapshot.val();
                 this.setState({
@@ -41,6 +42,10 @@ class Perfil extends Component {
                 })
             }
         });
+    }
+
+    componentWillUnmount(){
+        this.reference.off('value', this.listener);
     }
 
     getUser = (uid) => {

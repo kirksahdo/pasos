@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     optionText:{
         color:'#000',
         fontSize:20,
-        textAlign:'center'
+        textAlign:'center',
+        fontFamily: 'pompadour'
     }
 })
 export default styles

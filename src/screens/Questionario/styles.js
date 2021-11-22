@@ -22,7 +22,10 @@ const styles = StyleSheet.create({
     questionDescription:{
         marginTop:20,
         fontSize:20,
-        textAlign:'center',
+        textAlign: 'justify',
+        lineHeight: 28,
+        fontFamily: 'pompadour',
+        marginHorizontal: 20,
         color:'#000'
     },
     imgPersonagem:{

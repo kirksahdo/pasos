@@ -90,7 +90,7 @@ class Questionario extends Component{
         }else if(this.context.concluiuQuestionario){
             return <Text style={styles.progressNumberText}>Você concluiu o questionario de hoje</Text>
         }else{
-            return <Text style={styles.progressNumberText}>Carregando ...</Text>
+            return <Text style={styles.progressNumberText}>Carregando...</Text>
         }
     }
 
@@ -99,7 +99,7 @@ class Questionario extends Component{
             
             <ImageBackground style={styles.background} source={background}>
                 <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
-                <ScrollView style={styles.scroll}>
+                <ScrollView keyboardShouldPersistTaps="always" style={styles.scroll}>
                     <View style={styles.goBackArea} onTouchStart={()=> this.cancelAction()}>
                         <Image source={setaVoltar} style={styles.imgGoBackArea}/>
                     </View>

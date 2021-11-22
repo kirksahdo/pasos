@@ -26,9 +26,13 @@ class ListaContatos extends Component {
         this.getContatos();
     }
 
+    componentWillUnmount(){
+        this.countRef.off('value', this.listener);
+    }
+
     getContatos = () => {
-        var countRef = this.database.child(this.state.uid);
-        countRef.on('value', querySnapShot => {
+        this.countRef = this.database.child(this.state.uid);
+        this.listener = this.countRef.on('value', querySnapShot => {
             var contatosArray = []
             querySnapShot.forEach(item => {contatosArray.push(item.val())})
             this.setState({

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Text,ImageBackground, View, Image, TouchableOpacity } from 'react-native'
+import { Text,ImageBackground, View, Image, TouchableOpacity, Alert } from 'react-native'
 
 import styles from './styles'
 
@@ -100,7 +100,7 @@ class RotinaAlimentar extends Component{
 
     CheckcompletExer(){
         this.context.concluirRotinaAlimentar()
-        alert('Você concluiu sua rotina alimentar !!')
+        Alert.alert('Parabéns!', 'Você concluiu sua rotina alimentar!')
         this.props.navigation.navigate('Dashboard')
     }
 

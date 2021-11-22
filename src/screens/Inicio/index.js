@@ -95,7 +95,7 @@ class Inicio extends Component {
         return (
             <ImageBackground source={background} style={styles.background}>
                 <FocusAwareStatusBar barStyle='dark-content' translucent backgroundColor="transparent" />
-                <ScrollView>
+                <ScrollView keyboardShouldPersistTaps="always" >
                     <View style={styles.viewDays}>
                         {
                             this.state.days.map((item, index) => (

@@ -15,6 +15,8 @@ const styles = StyleSheet.create({
     },
     titleChallenge:{
         fontSize:40,
+        fontFamily: 'pompadour',
+        textTransform: 'uppercase',
         textAlign:'center',
         color:'#000',
         fontWeight:'bold'
@@ -22,7 +24,10 @@ const styles = StyleSheet.create({
     TextDescription:{
         marginTop:20,
         fontSize:20,
-        textAlign:'center',
+        textAlign: 'center',
+        lineHeight: 28,
+        fontFamily: 'pompadour',
+        marginHorizontal: 20,
         color:'#000'
     },
     imgPersonagem:{

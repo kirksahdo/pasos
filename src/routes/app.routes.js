@@ -17,8 +17,6 @@ import iconePerfil from './../../assets/icone-perfil.png'
 import iconePerfilAtivo from './../../assets/icone-perfil-ativo.png'
 import iconeConfiguracoes from './../../assets/icone-configuracoes.png'
 import iconeConfiguracoesAtivo from './../../assets/icone-configuracoes-ativo.png'
-import Inicio from '../screens/Inicio';
-import Questionario from '../screens/Questionario';
 import InicioRoutes from './inicio.routes';
 
 
