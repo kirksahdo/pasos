@@ -57,6 +57,7 @@ class ListaContatos extends Component {
                 <FlatList 
                     style={styles.list}
                     showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps="always"
                     data={this.state.contatos} 
                     keyExtractor={(item) => item.id}
                     renderItem={({item}) => {

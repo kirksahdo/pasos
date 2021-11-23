@@ -23,7 +23,7 @@ import InicioRoutes from './inicio.routes';
 const Tab = createBottomTabNavigator();
 
 const AppRoutes = () => (
-    <Tab.Navigator initialRouteName='Configuracoes'
+    <Tab.Navigator initialRouteName='Inicio'
         screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
                 let image;
