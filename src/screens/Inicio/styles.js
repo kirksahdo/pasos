@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     },
     degrauImage: {
         width: '100%',
-        height: 90,
+        height: 70,
         flexGrow: 1,
         alignItems: 'center',
         justifyContent: 'center'
@@ -73,17 +73,17 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
     },
     topRow: {
-        marginBottom: 40,
+        marginBottom:25,
         width: 200,
         left: 200
     },
     midRow: {
-        marginBottom: 30,
+        marginBottom: 25,
         width: 300,
         left: 100
     },
     bottomRow: {
-        marginTop: 10,
+        marginTop: 0,
         width: 300
     },
     containerStairs: {

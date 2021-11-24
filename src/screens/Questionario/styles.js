@@ -50,6 +50,10 @@ const styles = StyleSheet.create({
         height:'70%',
         display:'flex',
         justifyContent:'space-between'
+    },
+    icoSeta:{
+        width:25,
+        height:45
     }
 })
 export default styles;

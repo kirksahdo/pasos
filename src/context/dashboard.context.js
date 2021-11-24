@@ -24,6 +24,8 @@ export const ProcessDashboardContextProvider = ({children}) => {
     const user = Firebase.auth().currentUser;
     const currentDate = moment().format('YYYY-MM-DD')
 
+    
+
     function generateEventsDefault(Quest=true,Chall=true,Exerc=true,RotAli=true){
 
         const ref =database.ref('Atividades').child(user.uid).child(currentDate)
@@ -57,7 +59,13 @@ export const ProcessDashboardContextProvider = ({children}) => {
             ref.child(kRotAli).set({
                 tipo:'rotina-alimentar',
                 nome:"Rotina Alimentar",
-                concluido:false
+                concluido:false,
+                rotina:{
+                    cafe:true,
+                    almoco:true,
+                    lanche:true,
+                    janta:true
+                }
             })
         }
     }
@@ -232,7 +240,17 @@ export const ProcessDashboardContextProvider = ({children}) => {
             }
         });
     }
-    function concluirRotinaAlimentar(){
+    function concluirRotinaAlimentar(
+        cafe=false,
+        almoco=false,
+        lanche=false,
+        janta=false
+    ){
+
+        var concluido = false
+
+        if(cafe && almoco && lanche && janta) concluido = true
+
         database.ref('Atividades')
             .child(user.uid)
             .child(moment().format('YYYY-MM-DD'))
@@ -242,7 +260,13 @@ export const ProcessDashboardContextProvider = ({children}) => {
                     snapshot.forEach((child) => {
                         if(child.val().tipo =="rotina-alimentar"){
                             child.ref.update({
-                                concluido:true
+                                concluido:concluido,
+                                rotina:{
+                                    cafe:cafe,
+                                    almoco:almoco,
+                                    lanche:lanche,
+                                    janta:janta
+                                }
                             })
                         }
                     });

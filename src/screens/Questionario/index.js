@@ -76,12 +76,12 @@ class Questionario extends Component{
 
                     <View>
                         <View style={[styles.alignFlex, {paddingBottom: 30}]}>
-                            <Image source={setaInferiorVoltar} onTouchStart={()=>this.context.anteriorQuestao()}/>
+                            <Image style={styles.icoSeta} source={setaInferiorVoltar} onTouchStart={()=>this.context.anteriorQuestao()}/>
                             <DotProgressIndicator 
                                 numDots={this.context.questionary.length} 
                                 currentProgess={this.context.currentQuestion}
                             />
-                            <Image source={setaInferiorIda} onTouchStart={()=>this.context.proximaQuestao()}/>
+                            <Image style={styles.icoSeta} source={setaInferiorIda} onTouchStart={()=>this.context.proximaQuestao()}/>
                         </View>
                     </View>     
                 </View>

@@ -40,6 +40,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingTop:35,
     },
+    imgPlayer:{
+        width:80,
+        height:185,
+    },
     areaAction:{
         backgroundColor:'#000',
         borderRadius: 20,

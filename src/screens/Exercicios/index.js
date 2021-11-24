@@ -112,8 +112,8 @@ class Exercicios extends Component {
 
                     </Text>
                 </View>
-                <View style={styles.alignItemCenter}>
-                    <Image source={pensonagemInicioExercicio} />
+                <View style={[styles.alignItemCenter]}>
+                    <Image source={pensonagemInicioExercicio} style={styles.imgPlayer} />
                 </View>
                 <View style={styles.alignItemCenter}>
                     <TouchableOpacity style={[styles.areaAction,styles.buttomArea]} onPress={()=>this.nextAction()}>

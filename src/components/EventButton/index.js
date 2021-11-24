@@ -9,7 +9,7 @@ import questionarioIcoBranco from '../../../assets/questionario.png'
 import questionarioIcoPreto from '../../../assets/icone-questionario-preto.png'
 import pesoTreinoIcoBranco from '../../../assets/peso.png'
 import pesoIcoPreto from '../../../assets/icone-peso-preto.png'
-import macaIcoBranco from '../../../assets/maca.png'
+import macaIcoBranco from '../../../assets/maca1.png'
 import macaIcoPreto from '../../../assets/icone-maca-preto.png'
 
 import styles from "./styles";

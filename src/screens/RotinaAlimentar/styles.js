@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
         padding: 20
     },
     imgGoBackArea:{
-        width:20,
-        height:40
+        width:25,
+        height:45
     },
     title:{
         marginHorizontal:10,
@@ -90,6 +90,21 @@ const styles = StyleSheet.create({
     ,
     checked:{
         backgroundColor:'#FFF'
+    },
+    ico1:{
+        padding:10,
+        width:'70%',
+        height:'40%'
+    },
+    ico:{
+        padding:10,
+        width:'50%',
+        height:'70%'
+    },
+    ico2:{
+        padding:10,
+        width:'60%',
+        height:'45%'
     }
 })
 export default styles;
